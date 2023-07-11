@@ -54,10 +54,7 @@ const Movimientos = () => {
 
   return (
     <div className="">
-      <div
-        className="bg-white text-gray-700 border-0 border-purple-100 
-      rounded-lg p-4"
-      >
+      <div className="bg-black text-gray-200 rounded-lg p-4">
         <div className="grid grid-cols-2">
           <h1 className="col-span-2 font-semibold mb-2">
             Transacciones por mes
@@ -177,7 +174,7 @@ const Movimientos = () => {
       </div>
       
       {/** LIST DATOS */}
-      <div className="bg-gray-50 text-gray-700 shadow-md border-l-4 border-purple-600 rounded-lg pt-4 ml-2 mr-4">
+      <div className="bg-[#222] text-gray-200 border-2 border-purple-900 rounded-lg pt-4 ml-2 mr-4 shadow-lg shadow-gray-500">
         <div className="w-full h-[450px] grid grid-rows-3 grid-flow-col overflow-scroll">
           {transformData().map((item, index) => (
             <div
@@ -187,8 +184,8 @@ const Movimientos = () => {
               <div
                 className={`relative w-16 h-16 flex items-center justify-center rounded-full  border-4 ${
                   item.type === "Income"
-                    ? "border-blue-100 bg-blue-50"
-                    : "border-gray-100 bg-red-50"
+                    ? "border-blue-800 bg-blue-300"
+                    : "border-red-800 bg-gray-300"
                 } `}
               >
                 <img

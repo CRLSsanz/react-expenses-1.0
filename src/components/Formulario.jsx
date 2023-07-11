@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   AiOutlineCalendar,
   AiOutlineEdit,
@@ -7,6 +7,7 @@ import {
 import { IoWalletOutline } from "react-icons/io5";
 
 const hoy = new Date().toISOString();
+//console.log(hoy);
 
 const initailForm = {
   _id: null,
@@ -16,7 +17,7 @@ const initailForm = {
   total: "",
   category: "",
   comment: "",
-  type: "Expense" || "inc",
+  type: "Expense" || "Income",
   status: "",
 };
 
@@ -60,6 +61,9 @@ const accounts = [
 
 const Formulario = () => {
   const [form, setForm] = useState(initailForm);
+  const refTotal = useRef();
+  const refComment = useRef();
+  const refNewFecha = useRef();
 
   useEffect(() => {}, []);
 
@@ -71,8 +75,18 @@ const Formulario = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    refComment.current.value = "";
+    refTotal.current.value = "";
+    refNewFecha.current.value = hoy.substr(0, 10);
+
+    //let dh = hoy.substr(0, 10);
+    //refTotal.current.className = "bg-red-500";
+    console.log(form);
+    //console.log(refDate.current);
+
     setForm(initailForm);
-    alert("Formulario enviado");
+    window.location = "../expenses#section4";
+    alert("Datos enviados: " + JSON.stringify(form));
   };
 
   return (
@@ -80,34 +94,63 @@ const Formulario = () => {
       <div className="bg-gray-50 shadow-lg text-gray-700 rounded-lg p-4">
         <h1 className="font-semibold mt-2">Nuevo registro</h1>
         <form className="p-4" onSubmit={handleSubmit}>
-          {/** DATE */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-300">
-            <label className="pt-3 pr-3 text-xl">
-              <AiOutlineCalendar />
-            </label>
-            <div className="relative w-full">
+          {/** TOTAL PAY */}
+          <div className="w-full flex justify-center my-3">
+            <div className="w-1/2 flex flex-row">
+              <label className="form-label pr-2 pt-1 text-lg">$</label>
               <input
-                name="date"
-                defaultValue={form.date}
+                name="total"
+                ref={refTotal}
+                defaultValue={form.total}
                 onChange={handleChange}
-                className="font-numero appearance-none bg-transparent border-0 p-2 w-full focus:outline-none"
-                type="date"
+                className="font-numero font-thin appearance-none text-3xl bg-transparent border-b w-full border-gray-100  focus:outline-none"
+                type="number"
+                placeholder="1.00"
               />
+            </div>
+          </div>
 
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                <svg
-                  className="fill-current h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
+          {/** TYPE */}
+          <div className="w-full p-3 px-4 mb-3 flex justify-between border-0 border-gray-300">
+            <div className="flex items-center">
+              <input
+                id="bordered-radio-1"
+                type="radio"
+                onChange={handleChange}
+                onClick={() => (form.category = "")}
+                value="Expense"
+                name="type"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="bordered-radio-1"
+                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Gasto
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                checked={form.type === "Income" ? true : false}
+                onChange={handleChange}
+                onClick={() => (form.category = "")}
+                id="bordered-radio-2"
+                type="radio"
+                value="Income"
+                name="type"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="bordered-radio-2"
+                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Ingreso
+              </label>
             </div>
           </div>
           {/** ACCOUNT */}
           <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
-            <label className="pt-2 pr-3 text-xl">
+            <label className="pt-2 pr-3 text-xl text-gray-400">
               <IoWalletOutline />
             </label>
             <div className="w-full relative">
@@ -140,59 +183,10 @@ const Formulario = () => {
               </div>
             </div>
           </div>
-          {/** TOTAL PAY */}
-          <div className="w-full px-3 mb-3 border-b border-gray-300">
-            <div className="w-full flex flex-row">
-              <label className="form-label pl-1 pt-3 pr-4 text-lg">$</label>
-              <input
-                name="total"
-                defaultValue={form.total}
-                onChange={handleChange}
-                className="font-numero appearance-none text-3xl bg-transparent border-0 p-2 w-full focus:outline-none"
-                type="number"
-              />
-            </div>
-          </div>
-          {/** TYPE */}
-          <div className="w-full p-3 px-4 mb-3 flex justify-between border-b border-gray-300">
-            <div className="flex items-center">
-              <input
-                id="bordered-radio-1"
-                type="radio"
-                onChange={handleChange}
-                onClick={() => (form.category = "")}
-                value="Expense"
-                name="type"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label
-                htmlFor="bordered-radio-1"
-                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Expense
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input
-                onChange={handleChange}
-                onClick={() => (form.category = "")}
-                id="bordered-radio-2"
-                type="radio"
-                value="Income"
-                name="type"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label
-                htmlFor="bordered-radio-2"
-                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Income
-              </label>
-            </div>
-          </div>
+
           {/** CATEGORY */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-300">
-            <label className="pt-2 pr-3 text-xl">
+          <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
+            <label className="pt-2 pr-3 text-xl text-gray-400">
               <AiOutlineShopping />
             </label>
             <div className="relative w-full">
@@ -245,19 +239,47 @@ const Formulario = () => {
               </div>
             </div>
           </div>
+
+          {/** DATE */}
+          <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
+            <label className="pt-3 pr-3 text-xl text-gray-400">
+              <AiOutlineCalendar />
+            </label>
+            <div className="relative w-full">
+              <input
+                name="date"
+                ref={refNewFecha}
+                defaultValue={form.date}
+                onChange={handleChange}
+                className="font-numero appearance-none bg-transparent border-0 p-2 w-full focus:outline-none"
+                type="date"
+              />
+
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                <svg
+                  className="fill-current h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
           {/** COMMENT */}
-          <div className="w-full px-3 mb-6 flex flex-row border-b border-gray-300">
-            <label className="pt-3 pr-3 text-xl">
+          <div className="w-full px-3 mb-6 flex flex-row border-0 border-gray-300">
+            <label className="pt-2 pr-3 text-xl text-gray-400">
               <AiOutlineEdit />
             </label>
             <textarea
               name="comment"
-              rows="3"
+              ref={refComment}
+              rows="2"
               defaultValue={form.comment}
               onChange={handleChange}
               className="form-input appearance-none bg-transparent border-0 p-2 w-full
                 focus:outline-none"
-              placeholder="Comment"
+              placeholder={"Comentario"}
             />
           </div>
           {/** BUTTON SAVE */}

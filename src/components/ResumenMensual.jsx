@@ -2,6 +2,7 @@ import React from "react";
 import { FaMinus, FaPlus, FaEquals } from "react-icons/fa";
 import { useAppContext } from "../context/AppProvider";
 const cargarImagen = require.context("../images", true);
+const bag3 = "https://github.com/CRLSsanz/trade/blob/main/panal1.jpg?raw=true";
 
 const incomeCategory = [
   "Alquiler",
@@ -89,75 +90,81 @@ const ResumenMensual = () => {
 
   return (
     <div className="">
-      <div className="bg-gray-50 shadow-md text-gray-700 border-l-4 border-purple-600 rounded-lg p-4 mb-2">
-        <h1 className="font-semibold">Balance General</h1>
-        <div className="w-full flex justify-center">
-          <select
-            onChange={(e) => ""}
-            defaultValue={""}
-            className="hidden focus:outline-none appearance-none font-numero bg-transparent border p-2 mb-2"
-          >
-            <option value="">Cuentas</option>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Cuenta Bancaria">Cuenta Bancaria</option>
-            <option value="Tarjeta de credito">Tarjeta de credito</option>
-            <option value="Caja fuerte">Caja fuerte</option>
-            <option value="Otro">Otro</option>
-          </select>
+      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
+        <div className="bg-[#8F3C9F] p-4 rounded-md -mt-7">
+          <h1 className="text-lg mb-2">Balance General</h1>
+          <div className="w-full grid grid-cols-3 gap-2">
+            <select
+              onChange={(e) => ""}
+              defaultValue={""}
+              className="hidden focus:outline-none appearance-none font-numero bg-transparent p-2 mb-2"
+            >
+              <option value="">Cuentas</option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Cuenta Bancaria">Cuenta Bancaria</option>
+              <option value="Tarjeta de credito">Tarjeta de credito</option>
+              <option value="Caja fuerte">Caja fuerte</option>
+              <option value="Otro">Otro</option>
+            </select>
 
-          <select
-            onChange={(e) =>
-              filterDispatch({
-                type: "FILTER_BY_CONTROL",
-                payload: e.target.value,
-              })
-            }
-            defaultValue={""}
-            className="focus:outline-none appearance-none bg-transparent border p-2 mb-2"
-          >
-            <option value="">Control</option>
-            <option value="Income">Ingresos</option>
-            <option value="Expense">Gastos</option>
-          </select>
+            <select
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_CONTROL",
+                  payload: e.target.value,
+                })
+              }
+              defaultValue={""}
+              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent p-1 rounded-md"
+            >
+              <option value="">Filtro</option>
+              <option value="Income">Ingresos</option>
+              <option value="Expense">Gastos</option>
+            </select>
 
-          <select
-            defaultValue={month}
-            onChange={(e) =>
-              filterDispatch({
-                type: "FILTER_BY_MONTH",
-                payload: e.target.value,
-              })
-            }
-            className="focus:outline-none appearance-none bg-transparent border p-2 mb-2 "
-          >
-            <option value="">Meses</option>
-            <option value="01">Enero</option>
-            <option value="02">Febrero</option>
-            <option value="03">Marzo</option>
-            <option value="04">Abril</option>
-            <option value="05">Mayo</option>
-            <option value="06">Junio</option>
-            <option value="07">Julio</option>
-            <option value="08">Agosto</option>
-            <option value="09">Septiembre</option>
-            <option value="10">Octubre</option>
-            <option value="11">Noviembre</option>
-            <option value="12">Diciembre</option>
-          </select>
+            <select
+              defaultValue={month}
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_MONTH",
+                  payload: e.target.value,
+                })
+              }
+              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent p-1 rounded-md"
+            >
+              <option value="">All Months</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
 
-          <select
-            onChange={(e) =>
-              filterDispatch({ type: "FILTER_BY_AGE", payload: e.target.value })
-            }
-            defaultValue={age}
-            className="focus:outline-none appearance-none font-numero bg-transparent border p-2 mb-2"
-          >
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
+            <select
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_AGE",
+                  payload: e.target.value,
+                })
+              }
+              defaultValue={age}
+              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent  p-1 rounded-md"
+            >
+              <option value="">All Years</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
         </div>
-        <p className="hidden text-gray-400">Julio, 2023</p>
+
         <div className="grid grid-cols-5 font-numero text-right px-8">
           <h1 className="col-span-2">Ingreso : </h1>
           <h1 className="col-span-3 flex flex-row justify-end items-center">
@@ -175,10 +182,19 @@ const ResumenMensual = () => {
           </h1>
         </div>
       </div>
-      <div className="bg-gray-50 shadow-md text-gray-700 border-l-4 border-purple-600 rounded-lg p-4 mb-2">
-        <h1 className="font-semibold mb-2">Resumen por categoria</h1>
-        <p className="hidden text-gray-400">Julio, 2023</p>
-        <div className="px-4">
+
+      <div
+        className="bg-[#202940] text-gray-300 p-4 rounded-md mx-2 mb-4 border-0 border-purple-950"
+        style={
+          {
+            //backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${bag3})`,
+            //backgroundSize: "cover",
+            //backgroundAttachment: "fixed",
+          }
+        }
+      >
+        <h1 className="mb-2">Resumen por categoria</h1>
+        <div className="lg:max-h-[calc(100vh-350px)] lg:overflow-y-scroll">
           {Object.entries(resultado2)
             .sort()
             .map(([key, value]) => (
@@ -191,7 +207,7 @@ const ResumenMensual = () => {
                 />
                 <div className="w-full flex flex-col">
                   <div className="flex flex-row justify-between">
-                    <div className="tracking-wider ">{key}</div>
+                    <div className="text-sm tracking-wide ">{key}</div>
                     <div
                       className={`${color(
                         key,
@@ -201,9 +217,9 @@ const ResumenMensual = () => {
                       {value}.00 $
                     </div>
                   </div>
-                  <div className="w-full h-1 bg-gray-200">
+                  <div className="w-full h-0.5 bg-gray-700">
                     <div
-                      className={`w-full h-1 ${color(key, "bg")}`}
+                      className={`w-full h-0.5 ${color(key, "bg")}`}
                       style={{
                         width: (value * 100) / valorMax() + "%",
                       }}

@@ -8,9 +8,9 @@ const Navbar = () => {
       <nav className="w-full h-12 lg:h-14 px-2 lg:px-24 flex justify-between items-center bg-gradient-to-b from-zinc-200 backdrop-blur-2xl">
         <a
           href="../expenses"
-          className="px-4 text-lg text-gray-700 uppercase font-semibold"
+          className="px-4 text-lg text-gray-100 uppercase font-semibold"
         >
-          c r l s
+          c
         </a>
         <button
           onClick={() => setNavbar(!navbar)}
@@ -20,7 +20,8 @@ const Navbar = () => {
             <svg
               width="35px"
               viewBox="0 0 24 24"
-              fill="#aaa"
+              //fill="#aaa"
+              fill="#ddd"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
@@ -29,7 +30,7 @@ const Navbar = () => {
             <svg
               width="35px"
               viewBox="0 0 24 24"
-              fill="#aaa"
+              fill="#ddd"
               xmlns="http://www.w3.org/2000/svg"
               transform="matrix(1, 0, 0, 1, 0, 0)"
             >
@@ -59,17 +60,17 @@ const Navbar = () => {
         </li>
         <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
           <a href="#section2" onClick={() => setNavbar(!navbar)}>
-            Resumen
+            Summary
           </a>
         </li>
         <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
           <a href="#section3" onClick={() => setNavbar(!navbar)}>
-            Movimientos
+            Send record
           </a>
         </li>
         <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
           <a href="#section4" onClick={() => setNavbar(!navbar)}>
-            Registrar
+            Transactions
           </a>
         </li>
 
