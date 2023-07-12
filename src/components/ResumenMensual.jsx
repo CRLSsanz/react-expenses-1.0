@@ -1,8 +1,8 @@
 import React from "react";
 import { FaMinus, FaPlus, FaEquals } from "react-icons/fa";
+import { GoArrowUpRight, GoArrowDownRight } from "react-icons/go";
 import { useAppContext } from "../context/AppProvider";
 const cargarImagen = require.context("../images", true);
-const bag3 = "https://github.com/CRLSsanz/trade/blob/main/panal1.jpg?raw=true";
 
 const incomeCategory = [
   "Alquiler",
@@ -12,6 +12,20 @@ const incomeCategory = [
   "Salario",
   "Servicios",
   "Otros ingresos",
+];
+const meses = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
 ];
 
 const ResumenMensual = () => {
@@ -57,7 +71,7 @@ const ResumenMensual = () => {
     let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val2));
     return Math.max(...max3);
   };
-  const totalExpense = () => {
+  const totalExpenses = () => {
     let total = 0;
     {
       filterTransformData().forEach(function (value) {
@@ -82,7 +96,7 @@ const ResumenMensual = () => {
       //console.log(item + " - " + key);
       if (item === key) {
         //console.log(item + " - " + key);
-        return (c = " " + val + "-blue-500 ");
+        return (c = " " + val + "-blue-300 ");
       }
     });
     return c;
@@ -90,115 +104,136 @@ const ResumenMensual = () => {
 
   return (
     <div className="">
-      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
-        <div className="bg-[#8F3C9F] p-4 rounded-md -mt-7">
-          <h1 className="text-lg mb-2">Balance General</h1>
-          <div className="w-full grid grid-cols-3 gap-2">
-            <select
-              onChange={(e) => ""}
-              defaultValue={""}
-              className="hidden focus:outline-none appearance-none font-numero bg-transparent p-2 mb-2"
-            >
-              <option value="">Cuentas</option>
-              <option value="Efectivo">Efectivo</option>
-              <option value="Cuenta Bancaria">Cuenta Bancaria</option>
-              <option value="Tarjeta de credito">Tarjeta de credito</option>
-              <option value="Caja fuerte">Caja fuerte</option>
-              <option value="Otro">Otro</option>
-            </select>
+      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-8">
+        <h1 className="text-lg mb-2">Balance General</h1>
+        <div className="w-full grid grid-cols-2 gap-2">
+          <select
+            defaultValue={month}
+            onChange={(e) =>
+              filterDispatch({
+                type: "FILTER_BY_MONTH",
+                payload: e.target.value,
+              })
+            }
+            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
+          >
+            <option value="">All Months</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
 
-            <select
-              onChange={(e) =>
-                filterDispatch({
-                  type: "FILTER_BY_CONTROL",
-                  payload: e.target.value,
-                })
-              }
-              defaultValue={""}
-              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent p-1 rounded-md"
-            >
-              <option value="">Filtro</option>
-              <option value="Income">Ingresos</option>
-              <option value="Expense">Gastos</option>
-            </select>
+          <select
+            onChange={(e) =>
+              filterDispatch({
+                type: "FILTER_BY_AGE",
+                payload: e.target.value,
+              })
+            }
+            defaultValue={age}
+            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md font-numero"
+          >
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
 
-            <select
-              defaultValue={month}
-              onChange={(e) =>
-                filterDispatch({
-                  type: "FILTER_BY_MONTH",
-                  payload: e.target.value,
-                })
-              }
-              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent p-1 rounded-md"
-            >
-              <option value="">All Months</option>
-              <option value="01">Enero</option>
-              <option value="02">Febrero</option>
-              <option value="03">Marzo</option>
-              <option value="04">Abril</option>
-              <option value="05">Mayo</option>
-              <option value="06">Junio</option>
-              <option value="07">Julio</option>
-              <option value="08">Agosto</option>
-              <option value="09">Septiembre</option>
-              <option value="10">Octubre</option>
-              <option value="11">Noviembre</option>
-              <option value="12">Diciembre</option>
-            </select>
+          <select
+            onChange={(e) =>
+              filterDispatch({
+                type: "FILTER_BY_CONTROL",
+                payload: e.target.value,
+              })
+            }
+            defaultValue={""}
+            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
+          >
+            <option value="">Todas las transacciones</option>
+            <option value="Income">Ingresos</option>
+            <option value="Expense">Gastos</option>
+          </select>
 
-            <select
-              onChange={(e) =>
-                filterDispatch({
-                  type: "FILTER_BY_AGE",
-                  payload: e.target.value,
-                })
-              }
-              defaultValue={age}
-              className="focus:outline-none focus:bg-[#9d41af] appearance-none bg-transparent  p-1 rounded-md"
-            >
-              <option value="">All Years</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-5 font-numero text-right px-8">
-          <h1 className="col-span-2">Ingreso : </h1>
-          <h1 className="col-span-3 flex flex-row justify-end items-center">
-            {totalIncome()}.00 <FaPlus className="ml-1 text-sm text-blue-500" />
-          </h1>
-          <h1 className="col-span-2">Gasto : </h1>
-          <h1 className="col-span-3 flex flex-row justify-end items-center">
-            {totalExpense()}.00{" "}
-            <FaMinus className="ml-1 text-sm text-red-500" />
-          </h1>
-          <h1 className="col-span-2">Saldo : </h1>
-          <h1 className="col-span-3 flex flex-row justify-end items-center text-green-600">
-            S/. {totalIncome() - totalExpense()}.00{" "}
-            <FaEquals className="ml-1 text-sm text-gray-500" />{" "}
-          </h1>
+          <select
+            onChange={(e) => ""}
+            defaultValue={""}
+            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
+          >
+            <option value="">Todas las cuentas</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Cuenta Bancaria">Cuenta Bancaria</option>
+            <option value="Tarjeta de credito">Tarjeta de credito</option>
+            <option value="Caja fuerte">Caja fuerte</option>
+            <option value="Otro">Otro</option>
+          </select>
         </div>
       </div>
 
-      <div
-        className="bg-[#202940] text-gray-300 p-4 rounded-md mx-2 mb-4 border-0 border-purple-950"
-        style={
-          {
-            //backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${bag3})`,
-            //backgroundSize: "cover",
-            //backgroundAttachment: "fixed",
-          }
-        }
-      >
-        <h1 className="mb-2">Resumen por categoria</h1>
-        <div className="lg:max-h-[calc(100vh-350px)] lg:overflow-y-scroll">
+      <div className="grid grid-cols-2">
+        <div className="bg-[#202940] text-gray-200 p-2 px-4 rounded-md mx-2 mb-8">
+          <div className="relative text-right ">
+            <div className="text-lg font-numero pb-2 border-b border-gray-700">
+              ${totalIncome()}
+            </div>
+            <div className="flex justify-between">
+              <h1 className="text-gray-400 text-left text-sm">Ingresos</h1>
+              <h1 className="text-green-400 text-left text-sm font-numero">
+                {totalIncome() > totalExpenses()
+                  ? "$" + (totalIncome() - totalExpenses())
+                  : ""}
+              </h1>
+            </div>
+            <div className="absolute z-0 -top-6 bg-[#363b6b] rounded-md p-3">
+              <GoArrowUpRight className="text-blue-400 text-2xl" />
+            </div>
+          </div>
+        </div>
+        <div className="bg-[#202940] text-gray-200 p-2 px-4 rounded-md mx-2 mb-8">
+          <div className="relative text-right ">
+            <div className="text-lg font-numero pb-2 border-b border-gray-700">
+              ${totalExpenses()}
+            </div>
+            <h1 className="text-gray-400 text-left text-sm">Gastos</h1>
+            <div className="absolute z-0 -top-6 bg-[#6e4558] rounded-md p-3">
+              <GoArrowDownRight className="text-red-400 text-2xl" />
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden bg-[#202940] text-gray-200 p-2 px-4 rounded-md mx-2 mb-8">
+          <div className="flex justify-between items-end">
+            <h1 className="text-lg font-numero">$1290.00</h1>
+            <div className=" bg-[#322028] rounded-md p-2">
+              <GoArrowDownRight className="text-red-500 text-lg" />
+            </div>
+          </div>
+          <h2 className="text-sm text-gray-400 -mt-1">Gastos</h2>
+        </div>
+      </div>
+
+      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
+        <div className="bg-[#8F3C9F] p-4 rounded-md -mt-8">
+          <h1 className="text-gray-100">
+            Resumen por categoria ({Object.entries(resultado2).length})
+          </h1>
+          <p className="text-sm text-gray-400">
+            Lista de {byControl === "" ? " transacciones" : byControl} de{" "}
+            {meses[Number(byMonth) - 1]}, {byAge}
+          </p>
+        </div>
+        <div className="lg:max-h-[calc(100vh-350px)] lg:overflow-y-scroll pt-4">
           {Object.entries(resultado2)
             .sort()
             .map(([key, value]) => (
-              <div key={key} className="flex mb-3">
+              <div key={key} className="flex mb-4">
                 <img
                   className="rounded-sm inline-block mr-3 "
                   src={cargarImagen(`./${key}.png`)}
@@ -217,9 +252,9 @@ const ResumenMensual = () => {
                       {value}.00 $
                     </div>
                   </div>
-                  <div className="w-full h-0.5 bg-gray-700">
+                  <div className="w-full h-1 bg-gray-700">
                     <div
-                      className={`w-full h-0.5 ${color(key, "bg")}`}
+                      className={`w-full h-1 ${color(key, "bg")}`}
                       style={{
                         width: (value * 100) / valorMax() + "%",
                       }}

@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
-      <nav className="w-full h-12 lg:h-14 px-2 lg:px-24 flex justify-between items-center bg-gradient-to-b from-zinc-200 backdrop-blur-2xl">
+      <nav className="w-full h-12 lg:h-14 px-2 lg:px-24 flex justify-between items-center bg-gradient-to-b from-zinc-500 backdrop-blur-2xl">
         <a
           href="../expenses"
           className="px-4 text-lg text-gray-100 uppercase font-semibold"

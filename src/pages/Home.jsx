@@ -3,11 +3,20 @@ import ResumenMensual from "../components/ResumenMensual";
 import Movimientos from "../components/Movimientos";
 import Formulario from "../components/Formulario";
 import About from "./About";
+const bag3 = "https://github.com/CRLSsanz/trade/blob/main/panal1.jpg?raw=true";
 
 const Home = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <section id="section1" className="bg-[#111] h-screen flex">
+      <section
+        id="section1"
+        className="bg-[#111] h-screen flex"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${bag3})`,
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+        }}
+      >
         <div className="m-auto">
           <About />
         </div>
