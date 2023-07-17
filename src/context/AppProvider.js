@@ -8,7 +8,7 @@ const initialState = {
     {
       category: "Alimentos y bebidas",
       comment: "Compras de frutas",
-      date: "2023-07-21",
+      date: "2023-06-21",
       total: 55,
       type: "Expense",
       account: "Efectivo",
@@ -16,7 +16,7 @@ const initialState = {
     {
       category: "Automovil",
       comment: "Gasolina",
-      date: "2023-07-20",
+      date: "2023-06-20",
       total: 100,
       type: "Expense",
       account: "Tarjeta de credito",
@@ -24,7 +24,7 @@ const initialState = {
     {
       category: "Bebe",
       comment: "Juguetes y accesorios",
-      date: "2023-07-17",
+      date: "2023-06-17",
       total: 30,
       type: "Expense",
       account: "Cuenta bancaria",
@@ -32,7 +32,7 @@ const initialState = {
     {
       category: "Belleza e higiene",
       comment: "peluqueria",
-      date: "2023-07-15",
+      date: "2023-06-15",
       total: 75,
       type: "Expense",
       account: "Cuenta bancaria",
@@ -40,7 +40,7 @@ const initialState = {
     {
       category: "Casa o vivienda",
       comment: "Mueble para la tv",
-      date: "2023-07-14",
+      date: "2023-06-14",
       total: 450,
       type: "Expense",
       account: "Tarjeta de credito",
@@ -48,7 +48,7 @@ const initialState = {
     {
       category: "Alquiler",
       comment: "Mensualidad de departamento",
-      date: "2023-07-14",
+      date: "2023-06-14",
       total: 250,
       type: "Income",
       account: "Caja fuerte",
@@ -163,7 +163,7 @@ const initialState = {
     {
       category: "Equipos electronicos",
       comment: "ventiladora",
-      date: "2023-08-07",
+      date: "2023-09-07",
       total: 120,
       type: "Expense",
       account: "Efectivo",
@@ -172,7 +172,7 @@ const initialState = {
     {
       category: "Cliente",
       comment: "cliente",
-      date: "2023-08-06",
+      date: "2023-09-06",
       total: 70,
       type: "Income",
       account: "Efectivo",
@@ -180,7 +180,7 @@ const initialState = {
     {
       category: "Estudios formacion",
       comment: "Libros",
-      date: "2023-08-04",
+      date: "2023-09-04",
       total: 40,
       type: "Expense",
       account: "Efectivo",
@@ -189,7 +189,7 @@ const initialState = {
     {
       category: "Facturas y pagos",
       comment: "luz",
-      date: "2023-08-03",
+      date: "2023-09-03",
       total: 85,
       type: "Expense",
       account: "Efectivo",
@@ -198,7 +198,7 @@ const initialState = {
     {
       category: "Mascota",
       comment: "Comida",
-      date: "2023-08-01",
+      date: "2023-09-01",
       total: 20,
       type: "Expense",
       account: "Efectivo",

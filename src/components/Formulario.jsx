@@ -73,6 +73,7 @@ const Formulario = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     refComment.current.value = "";
@@ -85,33 +86,20 @@ const Formulario = () => {
     //console.log(refDate.current);
 
     setForm(initailForm);
-    window.location = "../expenses#section4";
+    window.location = "#section4";
     alert("Datos enviados: " + JSON.stringify(form));
   };
 
   return (
-    <div className="px-2">
-      <div className="bg-gray-50 shadow-lg text-gray-700 rounded-lg p-4">
-        <h1 className="font-semibold mt-2">Nuevo registro</h1>
-        <form className="p-4" onSubmit={handleSubmit}>
-          {/** TOTAL PAY */}
-          <div className="w-full flex justify-center my-3">
-            <div className="w-1/2 flex flex-row">
-              <label className="form-label pr-2 pt-1 text-lg">$</label>
-              <input
-                name="total"
-                ref={refTotal}
-                defaultValue={form.total}
-                onChange={handleChange}
-                className="font-numero font-thin appearance-none text-3xl bg-transparent border-b w-full border-gray-100  focus:outline-none"
-                type="number"
-                placeholder="1.00"
-              />
-            </div>
-          </div>
-
+    <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
+      <form onSubmit={handleSubmit}>
+        <div className="bg-cyan-600 p-4 rounded-md -mt-8">
+          <h1 className="text-gray-50">Nuevo registro</h1>
+          <p className="text-gray-200 text-sm mb-3">
+            Seleciona el tipo de movimiento
+          </p>
           {/** TYPE */}
-          <div className="w-full p-3 px-4 mb-3 flex justify-between border-0 border-gray-300">
+          <div className="w-full p-3 px-4 flex justify-between  border-cyan-500 border rounded-md">
             <div className="flex items-center">
               <input
                 id="bordered-radio-1"
@@ -124,7 +112,7 @@ const Formulario = () => {
               />
               <label
                 htmlFor="bordered-radio-1"
-                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="uppercase w-full ml-2 text-sm font-medium"
               >
                 Gasto
               </label>
@@ -142,14 +130,34 @@ const Formulario = () => {
               />
               <label
                 htmlFor="bordered-radio-2"
-                className="uppercase w-full ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="uppercase w-full ml-2 text-sm font-medium"
               >
                 Ingreso
               </label>
             </div>
           </div>
+        </div>
+        <div className="p-4">
+          {/** TOTAL PAY  */}
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
+            <div className="flex flex-row">
+              <label className="form-label pl-2 pr-4 pt-1 text-lg text-gray-400">
+                $
+              </label>
+              <input
+                name="total"
+                ref={refTotal}
+                defaultValue={form.total}
+                onChange={handleChange}
+                className="font-numero font-thin appearance-none text-3xl bg-transparent w-full p-1 focus:outline-none"
+                type="number"
+                placeholder=".0"
+              />
+            </div>
+          </div>
+
           {/** ACCOUNT */}
-          <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
             <label className="pt-2 pr-3 text-xl text-gray-400">
               <IoWalletOutline />
             </label>
@@ -185,7 +193,7 @@ const Formulario = () => {
           </div>
 
           {/** CATEGORY */}
-          <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
             <label className="pt-2 pr-3 text-xl text-gray-400">
               <AiOutlineShopping />
             </label>
@@ -241,7 +249,7 @@ const Formulario = () => {
           </div>
 
           {/** DATE */}
-          <div className="w-full px-3 mb-1 flex flex-row border-b border-gray-300">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
             <label className="pt-3 pr-3 text-xl text-gray-400">
               <AiOutlineCalendar />
             </label>
@@ -279,7 +287,7 @@ const Formulario = () => {
               onChange={handleChange}
               className="form-input appearance-none bg-transparent border-0 p-2 w-full
                 focus:outline-none"
-              placeholder={"Comentario"}
+              placeholder={"Escribe un comentario"}
             />
           </div>
           {/** BUTTON SAVE */}
@@ -291,8 +299,8 @@ const Formulario = () => {
               Send {form.type}
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

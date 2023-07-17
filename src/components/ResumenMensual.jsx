@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaMinus, FaPlus, FaEquals } from "react-icons/fa";
+import { TiFilter } from "react-icons/ti";
 import { GoArrowUpRight, GoArrowDownRight } from "react-icons/go";
 import { useAppContext } from "../context/AppProvider";
 const cargarImagen = require.context("../images", true);
@@ -30,6 +31,7 @@ const meses = [
 
 const ResumenMensual = () => {
   const { datos, filterState, filterDispatch } = useAppContext();
+  const [showFilter, setShowFilter] = useState(false);
 
   //FECHA PARA FILTERS
   const hoy = new Date().toISOString();
@@ -96,84 +98,127 @@ const ResumenMensual = () => {
       //console.log(item + " - " + key);
       if (item === key) {
         //console.log(item + " - " + key);
-        return (c = " " + val + "-blue-300 ");
+        return (c = " " + val + "-blue-500 ");
       }
     });
     return c;
   };
+  const handelOnClose = (e) => {
+    //onClose();
+    if (e.target.id === "container") setShowFilter(false);
+  };
 
   return (
-    <div className="">
-      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-8">
+    <div>
+      <div className="bg-[#202940] relative text-gray-200 p-4 rounded-md mx-2 mb-8">
         <h1 className="text-lg mb-2">Balance General</h1>
-        <div className="w-full grid grid-cols-2 gap-2">
-          <select
-            defaultValue={month}
-            onChange={(e) =>
-              filterDispatch({
-                type: "FILTER_BY_MONTH",
-                payload: e.target.value,
-              })
-            }
-            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
-          >
-            <option value="">All Months</option>
-            <option value="01">Enero</option>
-            <option value="02">Febrero</option>
-            <option value="03">Marzo</option>
-            <option value="04">Abril</option>
-            <option value="05">Mayo</option>
-            <option value="06">Junio</option>
-            <option value="07">Julio</option>
-            <option value="08">Agosto</option>
-            <option value="09">Septiembre</option>
-            <option value="10">Octubre</option>
-            <option value="11">Noviembre</option>
-            <option value="12">Diciembre</option>
-          </select>
+        {/** BOTON FILTRO */}
+        <div
+          className="bg-[#29345277] absolute bottom-0 -right-4 p-2"
+          onClick={() => setShowFilter((prev) => !prev)}
+        >
+          <TiFilter className="text-xl" />
+        </div>
+        {/** CONTENIDO FILTRER */}
+        <div
+          id="container"
+          onClick={handelOnClose}
+          className={`fixed z-20 top-16 right-10 w-[calc(100vw-56px)] h-[calc(100vh-80px)]   
+          
+          ${
+            showFilter
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          } 
+          `}
+        >
+          <div className="flex justify-end">
+            <div
+              className={`bg-gray-500 p-6 rounded-lg w-full ml-4 grid grid-cols-2 gap-4`}
+            >
+              <h1 className="col-span-2">Sidebars Filters</h1>
+              <select
+                defaultValue={month}
+                onChange={(e) =>
+                  filterDispatch({
+                    type: "FILTER_BY_MONTH",
+                    payload: e.target.value,
+                  })
+                }
+                className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
+              >
+                <option value="">Todos los meses</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
 
-          <select
-            onChange={(e) =>
-              filterDispatch({
-                type: "FILTER_BY_AGE",
-                payload: e.target.value,
-              })
-            }
-            defaultValue={age}
-            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md font-numero"
-          >
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
+              <select
+                onChange={(e) =>
+                  filterDispatch({
+                    type: "FILTER_BY_AGE",
+                    payload: e.target.value,
+                  })
+                }
+                defaultValue={age}
+                className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md font-numero"
+              >
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
 
-          <select
-            onChange={(e) =>
-              filterDispatch({
-                type: "FILTER_BY_CONTROL",
-                payload: e.target.value,
-              })
-            }
-            defaultValue={""}
-            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
-          >
-            <option value="">Todas las transacciones</option>
-            <option value="Income">Ingresos</option>
-            <option value="Expense">Gastos</option>
-          </select>
+              <select
+                onChange={(e) =>
+                  filterDispatch({
+                    type: "FILTER_BY_CONTROL",
+                    payload: e.target.value,
+                  })
+                }
+                defaultValue={""}
+                className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
+              >
+                <option value="">Todas las transacciones</option>
+                <option value="Income">Ingresos</option>
+                <option value="Expense">Gastos</option>
+              </select>
 
-          <select
-            onChange={(e) => ""}
-            defaultValue={""}
-            className="focus:outline-none text-sm bg-[#293452] p-1.5 px-3 rounded-md"
-          >
-            <option value="">Todas las cuentas</option>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Cuenta Bancaria">Cuenta Bancaria</option>
-            <option value="Tarjeta de credito">Tarjeta de credito</option>
-            <option value="Caja fuerte">Caja fuerte</option>
-            <option value="Otro">Otro</option>
-          </select>
+              <select
+                onChange={(e) => ""}
+                defaultValue={""}
+                className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
+              >
+                <option value="">Todas las cuentas</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Cuenta Bancaria">Cuenta Bancaria</option>
+                <option value="Tarjeta de credito">Tarjeta de credito</option>
+                <option value="Caja fuerte">Caja fuerte</option>
+                <option value="Otro">Otro</option>
+              </select>
+
+              <div className="col-span-2 w-full flex justify-end pt-8">
+                <svg
+                  onClick={() => setShowFilter(false)}
+                  width="25px"
+                  viewBox="0 0 24 24"
+                  //fill="#aaa"
+                  fill="#ddd"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -219,27 +264,30 @@ const ResumenMensual = () => {
         </div>
       </div>
 
-      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
-        <div className="bg-[#8F3C9F] p-4 rounded-md -mt-8">
+      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-4">
+        <div className="bg-[#339464] p-4 rounded-md -mt-8">
           <h1 className="text-gray-100">
             Resumen por categoria ({Object.entries(resultado2).length})
           </h1>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-300">
             Lista de {byControl === "" ? " transacciones" : byControl} de{" "}
-            {meses[Number(byMonth) - 1]}, {byAge}
+            {byMonth === "" ? "todos los meses" : meses[Number(byMonth) - 1]}{" "}
+            del {byAge}
           </p>
         </div>
-        <div className="lg:max-h-[calc(100vh-350px)] lg:overflow-y-scroll pt-4">
+
+        <div className="lg:max-h-[calc(100vh-450px)] lg:overflow-y-scroll pt-4">
           {Object.entries(resultado2)
             .sort()
             .map(([key, value]) => (
               <div key={key} className="flex mb-4">
                 <img
-                  className="rounded-sm inline-block mr-3 "
+                  className="bg-white border-2 rounded-full mr-3 "
                   src={cargarImagen(`./${key}.png`)}
                   style={{ width: "30px", height: "30px" }}
                   alt={key}
                 />
+
                 <div className="w-full flex flex-col">
                   <div className="flex flex-row justify-between">
                     <div className="text-sm tracking-wide ">{key}</div>

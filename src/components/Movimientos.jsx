@@ -54,11 +54,25 @@ const Movimientos = () => {
 
   return (
     <div className="">
-      <div className="bg-black text-gray-200 rounded-lg p-4">
-        <div className="grid grid-cols-2">
-          <h1 className="col-span-2 font-semibold mb-2">
-            Transacciones por mes
-          </h1>
+      <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-4">
+        <div className="bg-[#8F3C9F] p-4 rounded-md -mt-8">
+          <div className="flex justify-between mb-2">
+            <h1 className="col-span-2 text-gray-100">Transacciones por mes</h1>
+            <select
+              onChange={(e) =>
+                filterDispatchMovim({
+                  type: "FILTER_BY_AGE",
+                  payload: e.target.value,
+                })
+              }
+              defaultValue={age}
+              className="focus:outline-none font-numero bg-transparent"
+            >
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
+          </div>
           <select
             defaultValue={month}
             onChange={(e) =>
@@ -67,7 +81,7 @@ const Movimientos = () => {
                 payload: e.target.value,
               })
             }
-            className="focus:outline-none appearance-none bg-transparent border p-2 mr-2 mb-2 "
+            className="w-full rounded-md focus:outline-none bg-transparent border border-purple-300 px-3 py-2"
           >
             <option value="01">Enero</option>
             <option value="02">Febrero</option>
@@ -82,33 +96,20 @@ const Movimientos = () => {
             <option value="11">Noviembre</option>
             <option value="12">Diciembre</option>
           </select>
-          <select
-            onChange={(e) =>
-              filterDispatchMovim({
-                type: "FILTER_BY_AGE",
-                payload: e.target.value,
-              })
-            }
-            defaultValue={age}
-            className="focus:outline-none appearance-none font-numero bg-transparent border p-2 mb-2"
-          >
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
-
+        </div>
+        <div className="grid grid-cols-2 mt-3 px-4">
           <div className="mr-2 py-1">
             <h1>
               Gastos{" "}
-              <span className="text-red-500  font-numero">
+              <span className="text-red-400  font-numero">
                 ${totalExpense()}
               </span>
             </h1>
           </div>
           <div className="border-b--4 border-blue--500 py-1 text-end">
             <h1>
-              Ingreso{" "}
-              <span className="text-blue-500 font-numero">
+              Ingresos{" "}
+              <span className="text-blue-400 font-numero">
                 ${totalIncome()}
               </span>
             </h1>
@@ -116,9 +117,9 @@ const Movimientos = () => {
           <div className="hidden col-span-2">
             {(totalExpense() * 100) / totalIncome() + "%"}
           </div>
-          <div className="col-span-2 w-full bg-blue-500 rounded-full h-1.5 mb-4 dark:bg-gray-700">
+          <div className="col-span-2 w-full bg-blue-500 rounded-bl-full rounded-tr-full h-3 mb-1">
             <div
-              className="bg-red-500 h-1.5 rounded-l-full"
+              className="bg-red-400 h-3 rounded-bl-full rounded-tr-full "
               style={{
                 width:
                   (totalExpense() * 100) / (totalIncome() + totalExpense()) +
@@ -128,54 +129,10 @@ const Movimientos = () => {
           </div>
         </div>
       </div>
-      {/** LIST DATOS * /}
-      <div className="bg-white text-gray-700 border-l-4 border-purple-600 shadow-md rounded-lg p-4">
-        <div className="max-h-[calc(100vh-170px)] overflow-y-scroll overflow-x-hidden">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="flex flex-row justify-center items-center mb-5 "
-            >
-              <img
-                className="rounded-full w-10 h-10 border-2 border-gray-300"
-                src={cargarImagen(`./${item.category}.jpg`)}
-                alt={item.category}
-              />
-              <div
-                className={`w-full grid grid-cols-2 px-2 rounded-sm border-r-4 ${
-                  item.type === "Income" ? "border-blue-500" : "border-red-500"
-                } `}
-              >
-                <h1>{item.category}</h1>
-                <h1
-                  className={`font-numero text-right font-light  ${
-                    item.type === "Income" ? "text-green-600" : ""
-                  }`}
-                >
-                  $ {item.total}.00
-                </h1>
-                <h4 className="text-xs text-gray-400">Efectivo</h4>
-                <h4 className="text-xs text-gray-400 font-numero text-right">
-                  {item.date.substr(0, 10)}
-                </h4>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        <div className="hidden gridd grid-cols-2">
-          <h1>
-            Ingresos: <span className="text-green-500">$ 2550</span>
-          </h1>
-          <h1 className="text-right">
-            Gastos: <span className="text-red-500">$ 1300</span>
-          </h1>
-        </div>
-      </div>
-      
       {/** LIST DATOS */}
-      <div className="bg-[#222] text-gray-200 border-2 border-purple-900 rounded-lg pt-4 ml-2 mr-4 shadow-lg shadow-gray-500">
-        <div className="w-full h-[450px] grid grid-rows-3 grid-flow-col overflow-scroll">
+      <div className="bg-[#202940] text-gray-200 rounded-md pt-4 px-1 ml-2 mr-2 mb-4">
+        <div className="w-full h-[450px] grid grid-rows-3 grid-flow-col overflow-x-scroll ">
           {transformData().map((item, index) => (
             <div
               key={index}
@@ -184,8 +141,8 @@ const Movimientos = () => {
               <div
                 className={`relative w-16 h-16 flex items-center justify-center rounded-full  border-4 ${
                   item.type === "Income"
-                    ? "border-blue-800 bg-blue-300"
-                    : "border-red-800 bg-gray-300"
+                    ? "border-blue-200 bg-blue-100"
+                    : "border-red-200 bg-red-100"
                 } `}
               >
                 <img
@@ -204,12 +161,12 @@ const Movimientos = () => {
                   {item.date.substr(8, 2)}
                 </h1>
               </div>
-              <h4 className="truncate w-full text-center text-sm font-semibold">
+              <h4 className="truncate w-full text-center text-sm font-medium">
                 {item.category}
               </h4>
               <h4
-                className={`font-medium font-numero ${
-                  item.type === "Income" ? "text-blue-600" : "text-red-600"
+                className={`font-semibold font-numero ${
+                  item.type === "Income" ? "text-blue-400" : "text-red-500"
                 } `}
               >
                 ${item.total}
