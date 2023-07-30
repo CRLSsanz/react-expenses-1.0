@@ -86,20 +86,20 @@ const Formulario = () => {
     //console.log(refDate.current);
 
     setForm(initailForm);
-    window.location = "#section4";
+    window.location = "/expenses/transactions";
     alert("Datos enviados: " + JSON.stringify(form));
   };
 
   return (
-    <div className="bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-2">
+    <div className="bg-[#202940] text-gray-200 p-4 rounded-md rounded-br-[30px] rounded-tl-[30px] mx-4 mb-4 mt-12">
       <form onSubmit={handleSubmit}>
-        <div className="bg-cyan-600 p-4 rounded-md -mt-8">
+        <div className="bg-purple-500 p-4 rounded-md -mt-8">
           <h1 className="text-gray-50">Nuevo registro</h1>
           <p className="text-gray-200 text-sm mb-3">
             Seleciona el tipo de movimiento
           </p>
           {/** TYPE */}
-          <div className="w-full p-3 px-4 flex justify-between  border-cyan-500 border rounded-md">
+          <div className="w-full p-3 px-4 flex justify-between  border-purple-400 border rounded-md">
             <div className="flex items-center">
               <input
                 id="bordered-radio-1"
@@ -137,7 +137,7 @@ const Formulario = () => {
             </div>
           </div>
         </div>
-        <div className="p-4">
+        <div className="py-4">
           {/** TOTAL PAY  */}
           <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
             <div className="flex flex-row">
@@ -294,7 +294,7 @@ const Formulario = () => {
           <div className="w-full text-center">
             <button
               type="submit"
-              className="w-4/5 p-2 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 shadow-lg shadow-cyan-500/50  font-medium text-sm text-center rounded-full"
+              className="w-4/5 p-2 text-purple-300 bg-transparent border border-purple-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 shadow-lg shadow-purple-500/50  font-medium text-sm text-center rounded-full"
             >
               Send {form.type}
             </button>

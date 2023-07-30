@@ -38,6 +38,14 @@ const initialState = {
       account: "Cuenta bancaria",
     },
     {
+      category: "Negocios",
+      comment: "ingreso mensual",
+      date: "2023-06-15",
+      total: 700,
+      type: "Income",
+      account: "Cuenta Bancaria",
+    },
+    {
       category: "Casa o vivienda",
       comment: "Mueble para la tv",
       date: "2023-06-14",
@@ -54,11 +62,11 @@ const initialState = {
       account: "Caja fuerte",
     },
     {
-      category: "Regalo",
-      comment: "Visita a un familiar",
-      date: "2023-07-13",
-      total: 100,
-      type: "Income",
+      category: "Regalos",
+      comment: "cumpleòaos de sobrino",
+      date: "2023-07-19",
+      total: 135,
+      type: "Expense",
       account: "Efectivo",
     },
     {
@@ -76,15 +84,6 @@ const initialState = {
       total: 80,
       type: "Expense",
       account: "Tarjeta de credito",
-    },
-
-    {
-      category: "Negocios",
-      comment: "ingreso mensual",
-      date: "2023-07-09",
-      total: 700,
-      type: "Income",
-      account: "Cuenta Bancaria",
     },
     {
       category: "Salario",
@@ -112,11 +111,11 @@ const initialState = {
       account: "Efectivo",
     },
     {
-      category: "Vacaciones",
-      comment: "PAseo al centro recreacional",
+      category: "Regalo",
+      comment: "Regalo de cumpleaòos",
       date: "2023-08-21",
-      total: 130,
-      type: "Expense",
+      total: 730,
+      type: "Income",
       account: "Efectivo",
     },
     {

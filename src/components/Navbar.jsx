@@ -1,36 +1,30 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
     <div className="w-full">
-      <nav className="w-full h-12 lg:h-14 px-2 lg:px-24 flex justify-between items-center bg-gradient-to-b from-zinc-500 backdrop-blur-2xl">
-        <a
-          href="../expenses"
-          className="px-4 text-lg text-gray-100 uppercase font-semibold"
-        >
-          c
-        </a>
+      <nav className="w-full p-4 lg:px-24 flex justify-between items-center bg-transparent">
         <button
           onClick={() => setNavbar(!navbar)}
-          className="px-4 active:bg-none active:bg-transparent active:animate-ping focus:outline-none"
+          className="w-16 h-16 text-purple-600 bg-gray-50 rounded-full active:bg-none active:bg-transparent active:animate-ping focus:outline-none flex justify-center items-center shadow-lg shadow-purple-500"
         >
           {navbar ? (
             <svg
-              width="35px"
+              width="30px"
               viewBox="0 0 24 24"
-              //fill="#aaa"
-              fill="#ddd"
+              fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
             </svg>
           ) : (
             <svg
-              width="35px"
+              width="30px"
               viewBox="0 0 24 24"
-              fill="#ddd"
+              fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
               transform="matrix(1, 0, 0, 1, 0, 0)"
             >
@@ -40,9 +34,15 @@ const Navbar = () => {
             </svg>
           )}
         </button>
+        <Link
+          to="/expenses/formulario"
+          className="w-16 h-16 text-purple-600 bg-gray-50 text-2xl rounded-full uppercase font-semibold flex shadow-lg shadow-purple-500"
+        >
+          <span className="m-auto">$</span>
+        </Link>
       </nav>
       <ul
-        className={`fixed z-50 flex flex-col justify-center text-center text-white bg-[#238799ee] top-12 lg:top-14 w-[calc(100%-100px)] sm:w-[500px] h-[calc(100%-48px)] lg:h-[calc(100%-56px)] transform transition-all duration-1000 px-8 sm:px-12 lg:px-24
+        className={`fixed z-50 flex flex-col justify-center text-center text-purple-300 bg-[#222222f5] top-0 w-[calc(100%-100px)] sm:w-[500px] h-[calc(100%-100px)] lg:h-[calc(100%-56px)] transform transition-all duration-1000 px-8 sm:px-12 lg:px-24
         ${
           navbar
             ? " opacity-100 pointer-events-auto right-0"
@@ -54,36 +54,29 @@ const Navbar = () => {
         </li>
         <br />
         <li className="w-full py-2 hover:font-bold ">
-          <a href="#section1" onClick={() => setNavbar(!navbar)}>
+          <Link to="/expenses/" onClick={() => setNavbar(!navbar)}>
+            Home
+          </Link>
+        </li>
+        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
+          <Link to="/expenses/about" onClick={() => setNavbar(!navbar)}>
             About
-          </a>
+          </Link>
         </li>
-        <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
-          <a href="#section2" onClick={() => setNavbar(!navbar)}>
-            Summary
-          </a>
+        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
+          <Link to="/expenses/analytics" onClick={() => setNavbar(!navbar)}>
+            Analytics
+          </Link>
         </li>
-        <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
-          <a href="#section3" onClick={() => setNavbar(!navbar)}>
-            Send record
-          </a>
+        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
+          <Link to="/expenses/formulario" onClick={() => setNavbar(!navbar)}>
+            Formulario
+          </Link>
         </li>
-        <li className="w-full border-t border-gray-400 py-2 hover:font-bold ">
-          <a href="#section4" onClick={() => setNavbar(!navbar)}>
+        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
+          <Link to="/expenses/transactions" onClick={() => setNavbar(!navbar)}>
             Transactions
-          </a>
-        </li>
-
-        <br />
-        <li className="">
-          <a href="http://www.google.com" className="">
-            carlonchosanz@gmail.com
-          </a>
-        </li>
-        <li className="">
-          <a href="http://www.google.com" className="">
-            + Downloader my resumen
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

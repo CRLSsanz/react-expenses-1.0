@@ -1,5 +1,6 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const serie1 = [
@@ -12,16 +13,34 @@ const About = () => {
       enabled: false,
     },
     xaxis: {
-      categories: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul"],
+      categories: [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+      ],
     },
   };
   const options2 = {
-    labels: ["A", "B", "C", "D", "E", "F"],
+    labels: [
+      "Salud",
+      "Mascota",
+      "Transporte",
+      "Compras",
+      "Alimentos",
+      "Vacaciones",
+    ],
   };
 
   return (
-    <div className="text-base px-4">
+    <div className="text-base px-8">
       <h1 className="h-16"></h1>
+      {/**
       <Chart
         type="donut"
         options={options2}
@@ -37,20 +56,19 @@ const About = () => {
         options={option1}
         //stroke={{ curve: "stepline" }}
       />
-
+ */}
       <h1 className="text-4xl text-gray-300 mb-3">
-        Controla tus gastos e ingresos
+        Manage your <span className="text-cyan-600">Expenses</span> more easily
       </h1>
       <p className=" text-gray-500 text-sm mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut distinctio
-        necessitatibus dicta minima quia blanditiis.{" "}
+        Get complete control over your expenses and save as mush as you want.
       </p>
-      <a
-        href="#section3"
-        className="bg-[#e7e7e7] text-sm py-3 px-5 text-gray-900"
+      <Link
+        to="/expenses/analitycs"
+        className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 shadow-lg shadow-cyan-500/50 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 mb-2"
       >
-        Get Started
-      </a>
+        Get started
+      </Link>
     </div>
   );
 };
