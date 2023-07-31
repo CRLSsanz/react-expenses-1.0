@@ -38,8 +38,8 @@ const About = () => {
   };
 
   return (
-    <div className="text-base px-8">
-      <h1 className="h-16"></h1>
+    <div className="text-base px-8 md:px-24">
+      <h1 className="h-16 md:h-32"></h1>
       {/**
       <Chart
         type="donut"
@@ -64,7 +64,7 @@ const About = () => {
         Get complete control over your expenses and save as mush as you want.
       </p>
       <Link
-        to="/expenses/analitycs"
+        to="/expenses/analytics"
         className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 shadow-lg shadow-cyan-500/50 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 mb-2"
       >
         Get started

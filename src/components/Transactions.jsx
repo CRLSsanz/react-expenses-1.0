@@ -52,7 +52,7 @@ const Transactions = () => {
     //const balance;
     if (totalIncome() <= totalExpense()) return 0;
     const balance = ((totalIncome() - totalExpense()) * 100) / totalIncome();
-    console.log(balance.toFixed(0));
+    //console.log(balance.toFixed(0));
     return balance.toFixed(0);
   };
 
@@ -84,7 +84,7 @@ const Transactions = () => {
         hollow: {
           margin: 0,
           size: "50%", // grosor del circulo
-          //background: "#5279A3", // fonfo gris oscuro
+          //background: "#5B21B6", // 6D28D9 fonfo gris oscuro
         },
         track: {
           //background: "#fff", // borde no lleno
@@ -103,7 +103,7 @@ const Transactions = () => {
           },
           value: {
             offsetY: 5, //elevar texto
-            color: "#ccc",
+            color: "#ddd",
             fontSize: "20px",
             show: true,
           },
@@ -125,10 +125,10 @@ const Transactions = () => {
   };
 
   return (
-    <>
-      <div className="text-purple-700 px-2 pl-4 mt-12 flex items-center justify-between">
-        <div className="text-xl">Welcome back</div>
-        <div className="px-2 border bg-white bg-border-[#202940] rounded-md">
+    <div className="md:w-[600px] bg-gray-50 rounded-xl md:py-4 md:px-8">
+      <div className=" px-4 pt-6 text-purple-700 flex items-center justify-between">
+        <div className="text-xl ">Welcome back</div>
+        <div className="px-2 bg-white shadow rounded-md">
           <select
             defaultValue={month}
             onChange={(e) =>
@@ -137,7 +137,7 @@ const Transactions = () => {
                 payload: e.target.value,
               })
             }
-            className="focus:outline-none appearance-none px-2 py-2"
+            className="focus:outline-none appearance-none bg-white px-2 py-2"
           >
             <option value="01">Enero</option>
             <option value="02">Febrero</option>
@@ -156,14 +156,14 @@ const Transactions = () => {
         </div>
       </div>
       {/* CHART */}
-      <div className=" flex items-center">
+      <div className=" flex items-center md:justify-center">
         <Chart
           type="radialBar"
           options={options1}
           series={[totalBalance()]}
           width="250"
         />
-        <div className="-ml-6">
+        <div className="-ml-6 md:ml-0">
           <p className="text-gray-400">Balance</p>
           {totalIncome() >= totalExpense() ? (
             <h1 className="text-green-400 text-3xl font-thin font-numero">
@@ -177,21 +177,21 @@ const Transactions = () => {
         </div>
       </div>
       {/* INCOME EXPENSES */}
-      <div className="bg-transparent text-gray-200 rounded-md mx-3 mb-8 flex ">
-        <div className="relative bg-cyan-700 border border-cyan-800 w-1/2 p-2 text-sm px-4 rounded mr-3">
+      <div className="bg-transparent text-gray-50 rounded-md mx-3 mb-8 flex ">
+        <div className="relative bg-cyan-500 border border-cyan-300 w-1/2 p-2 text-sm px-4 rounded mr-3">
           <span className="text-gray-200">Income</span>
           <br />
           <span className="text-xl font-numero">${totalIncome()}</span>{" "}
           <span className="font-numero text-cyan-400"> </span>
-          <PiWalletThin className="absolute top-4 right-3 text-4xl text-cyan-400" />
+          <PiWalletThin className="absolute top-4 right-3 text-4xl text-cyan-300" />
         </div>
-        <div className="relative bg-red-600 border border-red-800 w-1/2 p-2 text-sm px-4 rounded">
+        <div className="relative bg-red-400 border border-red-300 w-1/2 p-2 text-sm px-4 rounded">
           <span className="text-gray-200">Expenses</span>
           <br />
           <span className="text-xl font-numero font-extralight">
             ${totalExpense()}
           </span>{" "}
-          <PiShoppingCartSimpleLight className="absolute top-4 right-3 text-4xl text-red-400" />
+          <PiShoppingCartSimpleLight className="absolute top-4 right-3 text-4xl text-red-300" />
         </div>
       </div>
       {/* TRANSACTIONS */}
@@ -246,7 +246,7 @@ const Transactions = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -91,15 +91,15 @@ const Formulario = () => {
   };
 
   return (
-    <div className="bg-[#202940] text-gray-200 p-4 rounded-md rounded-br-[30px] rounded-tl-[30px] mx-4 mb-4 mt-12">
+    <div className="bg-transparent text-gray-500 p-4 md:p-8 rounded-md rounded-br-[30px] rounded-tl-[30px] mx-4 mb-4 mt-12">
       <form onSubmit={handleSubmit}>
-        <div className="bg-purple-500 p-4 rounded-md -mt-8">
-          <h1 className="text-gray-50">Nuevo registro</h1>
-          <p className="text-gray-200 text-sm mb-3">
+        <div className="bg-gradient-to-l from-cyan-400 via-cyan-500 to-cyan-600 text-white p-4 md:p-8 rounded-xl rounded-tl-[50px] -mt-8">
+          <h1 className="text-center text-xl mb-3">Nuevo registro</h1>
+          <p className="pl-2 text-gray-200 text-sm mb-1">
             Seleciona el tipo de movimiento
           </p>
           {/** TYPE */}
-          <div className="w-full p-3 px-4 flex justify-between  border-purple-400 border rounded-md">
+          <div className="w-full p-3 px-4 flex justify-between  border-cyan-500 border rounded-md">
             <div className="flex items-center">
               <input
                 id="bordered-radio-1"
@@ -137,9 +137,9 @@ const Formulario = () => {
             </div>
           </div>
         </div>
-        <div className="py-4">
+        <div className="pt-4 md:pt-8">
           {/** TOTAL PAY  */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-200">
             <div className="flex flex-row">
               <label className="form-label pl-2 pr-4 pt-1 text-lg text-gray-400">
                 $
@@ -157,7 +157,7 @@ const Formulario = () => {
           </div>
 
           {/** ACCOUNT */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-200">
             <label className="pt-2 pr-3 text-xl text-gray-400">
               <IoWalletOutline />
             </label>
@@ -193,7 +193,7 @@ const Formulario = () => {
           </div>
 
           {/** CATEGORY */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-200">
             <label className="pt-2 pr-3 text-xl text-gray-400">
               <AiOutlineShopping />
             </label>
@@ -249,7 +249,7 @@ const Formulario = () => {
           </div>
 
           {/** DATE */}
-          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-600">
+          <div className="w-full px-3 mb-3 flex flex-row border-b border-gray-200">
             <label className="pt-3 pr-3 text-xl text-gray-400">
               <AiOutlineCalendar />
             </label>
@@ -275,7 +275,7 @@ const Formulario = () => {
             </div>
           </div>
           {/** COMMENT */}
-          <div className="w-full px-3 mb-6 flex flex-row border-0 border-gray-300">
+          <div className="w-full px-3 mb-6 flex flex-row border-0 border-gray-200">
             <label className="pt-2 pr-3 text-xl text-gray-400">
               <AiOutlineEdit />
             </label>
@@ -294,7 +294,7 @@ const Formulario = () => {
           <div className="w-full text-center">
             <button
               type="submit"
-              className="w-4/5 p-2 text-purple-300 bg-transparent border border-purple-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 shadow-lg shadow-purple-500/50  font-medium text-sm text-center rounded-full"
+              className="w-4/5 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-full text-sm px-5 py-2.5 text-center"
             >
               Send {form.type}
             </button>
