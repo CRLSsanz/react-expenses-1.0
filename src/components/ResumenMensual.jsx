@@ -132,91 +132,93 @@ const ResumenMensual = () => {
           } 
           `}
         >
-          <div className="flex justify-end">
-            <div
-              className={`bg-gray-500 p-6 rounded-lg w-full ml-4 grid grid-cols-2 gap-4`}
+          {" "}
+        </div>
+
+        <div className="flex justify-end">
+          <div
+            className={`bg-gray-500 p-6 rounded-lg w-full ml-4 grid grid-cols-2 gap-4`}
+          >
+            <h1 className="col-span-2">Sidebars Filters</h1>
+            <select
+              defaultValue={month}
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_MONTH",
+                  payload: e.target.value,
+                })
+              }
+              className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
             >
-              <h1 className="col-span-2">Sidebars Filters</h1>
-              <select
-                defaultValue={month}
-                onChange={(e) =>
-                  filterDispatch({
-                    type: "FILTER_BY_MONTH",
-                    payload: e.target.value,
-                  })
-                }
-                className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
-              >
-                <option value="">Todos los meses</option>
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-              </select>
+              <option value="">Todos los meses</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
 
-              <select
-                onChange={(e) =>
-                  filterDispatch({
-                    type: "FILTER_BY_AGE",
-                    payload: e.target.value,
-                  })
-                }
-                defaultValue={age}
-                className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md font-numero"
-              >
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-              </select>
+            <select
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_AGE",
+                  payload: e.target.value,
+                })
+              }
+              defaultValue={age}
+              className="focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md font-numero"
+            >
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+            </select>
 
-              <select
-                onChange={(e) =>
-                  filterDispatch({
-                    type: "FILTER_BY_CONTROL",
-                    payload: e.target.value,
-                  })
-                }
-                defaultValue={""}
-                className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
-              >
-                <option value="">Todas las transacciones</option>
-                <option value="Income">Ingresos</option>
-                <option value="Expense">Gastos</option>
-              </select>
+            <select
+              onChange={(e) =>
+                filterDispatch({
+                  type: "FILTER_BY_CONTROL",
+                  payload: e.target.value,
+                })
+              }
+              defaultValue={""}
+              className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
+            >
+              <option value="">Todas las transacciones</option>
+              <option value="Income">Ingresos</option>
+              <option value="Expense">Gastos</option>
+            </select>
 
-              <select
-                onChange={(e) => ""}
-                defaultValue={""}
-                className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
-              >
-                <option value="">Todas las cuentas</option>
-                <option value="Efectivo">Efectivo</option>
-                <option value="Cuenta Bancaria">Cuenta Bancaria</option>
-                <option value="Tarjeta de credito">Tarjeta de credito</option>
-                <option value="Caja fuerte">Caja fuerte</option>
-                <option value="Otro">Otro</option>
-              </select>
+            <select
+              onChange={(e) => ""}
+              defaultValue={""}
+              className="col-span-2 focus:outline-none text-sm bg-[#293452] p-2 px-3 rounded-md"
+            >
+              <option value="">Todas las cuentas</option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Cuenta Bancaria">Cuenta Bancaria</option>
+              <option value="Tarjeta de credito">Tarjeta de credito</option>
+              <option value="Caja fuerte">Caja fuerte</option>
+              <option value="Otro">Otro</option>
+            </select>
 
-              <div className="col-span-2 w-full flex justify-end pt-8">
-                <svg
-                  onClick={() => setShowFilter(false)}
-                  width="25px"
-                  viewBox="0 0 24 24"
-                  //fill="#aaa"
-                  fill="#ddd"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
-                </svg>
-              </div>
+            <div className="col-span-2 w-full flex justify-end pt-8">
+              <svg
+                onClick={() => setShowFilter(false)}
+                width="25px"
+                viewBox="0 0 24 24"
+                //fill="#aaa"
+                fill="#ddd"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
+              </svg>
             </div>
           </div>
         </div>

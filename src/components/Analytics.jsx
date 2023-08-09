@@ -13,12 +13,11 @@ const incomeCategory = [
   "Otros ingresos",
 ];
 
+const cmeses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep"];
+
 const Analytics = () => {
   const { datos, filterState, filterDispatch } = useAppContext();
-
   const { byAge, byMonth, byControl } = filterState;
-
-  const month = 0;
 
   const transformData = () => {
     let data = datos;
@@ -55,9 +54,6 @@ const Analytics = () => {
     ),
     {}
   );
-  //console.log(resultado2);
-  console.log(dataType);
-  console.log(dataCategory);
 
   const valorMax = () => {
     let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val2));
@@ -76,9 +72,40 @@ const Analytics = () => {
     return c;
   };
 
+  // CHART
+  const objExp = datos.reduce((acum, item) => {
+    const [year, month] = item.date.split("-");
+    //console.log("ano: " + year + " - mes: " + month);
+    //console.log(item.date.substr(5, 2));
+    //acum[item.type] = acum[item.type] + item.total || item.total;
+    if (item.type === "Expense") {
+      acum[month] = acum[month] + item.total || item.total;
+    }
+    return acum;
+  }, []);
+  const objInc = datos.reduce((acum, item) => {
+    const [year, month] = item.date.split("-");
+    //console.log("ano: " + year + " - mes: " + month);
+    //console.log(item.date.substr(5, 2));
+    //acum[item.type] = acum[item.type] + item.total || item.total;
+    if (item.type === "Income") {
+      acum[month] = acum[month] + item.total || item.total;
+    }
+    return acum;
+  }, []);
+
+  let exp = [];
+  let inc = [];
+  let cmes = [];
+  Object.entries(objExp).map(([key, value]) => exp.push(value));
+  Object.entries(objInc).map(([key, value]) => inc.push(value));
+  Object.entries(objExp).map(([key, value]) =>
+    cmes.push(cmeses[Number(key) - 1])
+  );
+
   const serie1 = [
-    { name: "Income", data: [140, 270, 292, 142, 622, 532, 683] },
-    { name: "Expenses", data: [100, 200, 232, 432, 422, 132, 432] },
+    { name: "Income", data: inc },
+    { name: "Expenses", data: exp },
   ];
   const option1 = {
     colors: ["#089ABA", "#ff0000"],
@@ -86,29 +113,25 @@ const Analytics = () => {
       enabled: false,
     },
     xaxis: {
-      categories: [
-        "Ene",
-        "Feb",
-        "Mar",
-        "Abr",
-        "May",
-        "Jun",
-        "Jul",
-        "Ago",
-        "Sep",
-      ],
+      categories: cmes,
     },
   };
+
   return (
-    <div className="bg-gray-50 rounded-2xl md:w-[600px]">
-      <div className="text-cyan-600 px-8 pt-12 flex items-center justify-between">
+    <div className="w-full md:max-w-[600px] mt-32 mx-4 md:py-4 md:px-12 min-h-[calc(100vh-250px)] bg-white/95 rounded-2xl rounded-r-[40px]">
+      <div className="text-cyan-600 px-8 pt-8 pb-4 flex items-center justify-between">
         <div className="text-xl">Analytics</div>
       </div>
-      <div className=" bg-transparent p-2 mx-2 flex justify-center">
+      {/** CHART */}
+      <div className="relative bg-transparent pb-4 flex justify-center">
+        <div className="absolute w-[calc(100%-1px)] md:w-[calc(100%-48px)] h-[260px] md:bg-gray-50 border shadow-md md:px-6">
+          {" "}
+        </div>
         <Chart
+          className="py-4"
           type="area"
-          width={330}
-          height={200}
+          width={"360"}
+          height={220}
           series={serie1}
           options={option1}
           //stroke={{ curve: "stepline" }}
@@ -116,87 +139,61 @@ const Analytics = () => {
       </div>
 
       {/* FILTER */}
-      <div className="mx-6 my-4">
-        <h1 className="inline-block pr-4">Categoria por mes:</h1>
-        <select
-          defaultValue={month}
-          onChange={(e) =>
-            filterDispatch({
-              type: "FILTER_BY_MONTH",
-              payload: e.target.value,
-            })
-          }
-          className="focus:outline-none text-sm bg-white p-2 px-3 border border-gray-200 shadow-lg rounded-md"
-        >
-          <option value="">Todos los meses</option>
-          <option value="01">Enero</option>
-          <option value="02">Febrero</option>
-          <option value="03">Marzo</option>
-          <option value="04">Abril</option>
-          <option value="05">Mayo</option>
-          <option value="06">Junio</option>
-          <option value="07">Julio</option>
-          <option value="08">Agosto</option>
-          <option value="09">Septiembre</option>
-          <option value="10">Octubre</option>
-          <option value="11">Noviembre</option>
-          <option value="12">Diciembre</option>
-        </select>
-      </div>
-      {/* LIST */}
-      <div className="hidden bg-[#202940] text-gray-200 p-4 rounded-md mx-2 mb-4">
-        <div className="lg:max-h-[calc(100vh-450px)] lg:overflow-y-scroll pt-4">
-          {Object.entries(dataCategory)
-            .sort()
-            .map(([key, value]) => (
-              <div key={key} className="flex mb-4">
-                <img
-                  className="bg-white border-2 rounded-full mr-3 "
-                  src={cargarImagen(`./${key}.png`)}
-                  style={{ width: "30px", height: "30px" }}
-                  alt={key}
-                />
-
-                <div className="w-full flex flex-col">
-                  <div className="flex flex-row justify-between">
-                    <div className="text-sm tracking-wide ">{key}</div>
-                    <div
-                      className={`${color(
-                        key,
-                        "textt"
-                      )} text-gray-400 font-medium font-numero`}
-                    >
-                      {value}.00 $
-                    </div>
-                  </div>
-                  <div className="w-full h-1 bg-gray-700">
-                    <div
-                      className={`w-full h-1 ${color(key, "bg")}`}
-                      style={{
-                        width: (value * 100) / valorMax() + "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            ))}
+      <div className="px-6 my-5 flex flex-row justify-between items-center">
+        <h1 className="text-cyan-600 inline-block pr-4 text-xl">
+          Category list
+        </h1>
+        <div className="relative">
+          <select
+            defaultValue={byMonth}
+            onChange={(e) =>
+              filterDispatch({
+                type: "FILTER_BY_MONTH",
+                payload: e.target.value,
+              })
+            }
+            className="text-gray-500 pr-8 px-3 py-2 bg-gray-50 shadow-md rounded-full focus:outline-none text-sm border appearance-none"
+          >
+            <option value="">Todos los meses</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+            <svg
+              className="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+            </svg>
+          </div>
         </div>
       </div>
 
       {/** LIST DATOS */}
-      <div className="bg-gray-100 text-gray-400 shadow-lg rounded-md rounded-br-[30px] pt-4 px-1 mx-6 mb-8">
+      <div className="bg-gray-50 text-gray-500 shadow-lg rounded-lg rounded-br-[15px] pt-4 px-1 mx-6 mb-10">
         <div className="w-full grid grid-cols-4 ">
           {Object.entries(dataCategory)
             .sort()
             .map(([key, value]) => (
               <div key={key} className="flex flex-col  items-center mb-4">
                 <div
-                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-4 border-purple-300 bg-gray-200 }`}
+                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-4 border-purple-100 bg-purple-200 shadow-md mb-1 }`}
                 >
                   <img
                     className=" absolute rounded-sm"
                     src={cargarImagen(`./${key}.png`)}
-                    style={{ width: "40px" }}
+                    style={{ width: "35px" }}
                     alt={key}
                   />
                 </div>
@@ -206,14 +203,13 @@ const Analytics = () => {
                 >
                   ${value}
                 </h4>
-                <h4 className="truncateXX w-full text-center text-sm font-medium">
+                <h4 className="truncateXX w-full text-center text-xs font-medium">
                   {key}
                 </h4>
               </div>
             ))}
         </div>
       </div>
-      {/*  */}
     </div>
   );
 };

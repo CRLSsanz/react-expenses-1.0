@@ -6,6 +6,22 @@ import filterReducer, { filterReducerMovim } from "../reducers/filterReducer";
 const initialState = {
   db: [
     {
+      category: "Cine",
+      comment: "Pelicula en cinemark Death note en megaplaza",
+      date: "2023-05-10",
+      total: 80,
+      type: "Expense",
+      account: "Tarjeta de credito",
+    },
+    {
+      category: "Cliente",
+      comment: "recibo por honorarios",
+      date: "2023-05-15",
+      total: 550,
+      type: "Income",
+      account: "Efectivo",
+    },
+    {
       category: "Alimentos y bebidas",
       comment: "Compras de frutas",
       date: "2023-06-21",
@@ -63,7 +79,7 @@ const initialState = {
     },
     {
       category: "Regalos",
-      comment: "cumpleòaos de sobrino",
+      comment: "Cumpleanos de sobrino",
       date: "2023-07-19",
       total: 135,
       type: "Expense",
@@ -78,10 +94,10 @@ const initialState = {
       account: "Efectivo",
     },
     {
-      category: "Cine",
-      comment: "Death note en mega",
-      date: "2023-07-10",
-      total: 80,
+      category: "Vacaciones",
+      comment: "Paseo al centro recreacional con piscina",
+      date: "2023-07-08",
+      total: 180,
       type: "Expense",
       account: "Tarjeta de credito",
     },
@@ -146,7 +162,7 @@ const initialState = {
     {
       category: "Ropa y calzado",
       comment: "zapatillas",
-      date: "2023-08-10",
+      date: "2023-08-05",
       total: 130,
       type: "Expense",
       account: "Efectivo",
@@ -154,7 +170,7 @@ const initialState = {
     {
       category: "Restaurante",
       comment: "kfc",
-      date: "2023-08-09",
+      date: "2023-08-04",
       total: 40,
       type: "Expense",
       account: "Efectivo",

@@ -1,25 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { BsGraphUpArrow } from "react-icons/bs";
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
+import { PiHouseSimpleLight } from "react-icons/pi";
+import { TfiLayoutAccordionList } from "react-icons/tfi";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
     <div className="w-full">
-      <nav className="w-full p-4 lg:px-24 flex justify-between items-center bg-transparent">
+      <nav className="w-full px-3 pt-4 m-auto lg:w-[768px] flex justify-between items-center bg-transparent">
         <button
           onClick={() => setNavbar(!navbar)}
-          className="w-16 h-16 text-purple-600 bg-gray-50 rounded-full active:bg-none active:bg-transparent active:animate-ping focus:outline-none flex justify-center items-center shadow-lg shadow-purple-500"
+          className="z-50XX w-16 h-16 text-purple-700 bg-gray-50 rounded-full active:bg-none active:bg-transparent active:animate-ping focus:outline-none flex justify-center items-center shadow-lg shadow-purple-300"
         >
           {navbar ? (
-            <svg
-              width="30px"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
-            </svg>
+            <AiOutlineArrowDown className="text-3xl" />
           ) : (
             <svg
               width="30px"
@@ -35,48 +32,105 @@ const Navbar = () => {
           )}
         </button>
         <Link
-          to="/expenses/formulario"
-          className="w-16 h-16 text-purple-600 bg-gray-50 text-2xl rounded-full uppercase font-semibold flex shadow-lg shadow-purple-500"
+          to="/formulario"
+          className="w-16 h-16 text-purple-700 bg-gray-50 text-2xl rounded-full uppercase font-medium flex shadow-lg shadow-purple-300"
         >
-          <span className="m-auto">$</span>
+          <span className="active:animate-ping m-auto">$</span>
         </Link>
       </nav>
-      <ul
-        className={`fixed z-50 flex flex-col justify-center text-center text-purple-300 bg-[#222222f5] top-0 w-[calc(100%-100px)] sm:w-[500px] h-[calc(100%-100px)] lg:h-[calc(100%-56px)] transform transition-all duration-1000 px-8 sm:px-12 lg:px-24
-        ${
+      {/** FONDO NEGRO */}
+      <div
+        className={`fixed z-40 top-0 w-full h-screen bg-gray-500/50 ${
           navbar
-            ? " opacity-100 pointer-events-auto right-0"
-            : "opacity-0 pointer-events-none -right-80"
+            ? " opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
-        <li className="">
-          <span className="uppercase tracking-widest "> Navigation</span>
+        {" "}
+      </div>
+      {/** MENU  */}
+      <ul
+        className={`fixed z-50 text-purple-300 bg-[#222222ee] w-full min-hHH-[400px] transform transition-all duration-1000 flex flex-col rounded-b-[20px] text-center
+        ${
+          navbar
+            ? " opacity-100 pointer-events-auto top-0"
+            : "opacity-0 pointer-events-none -top-80"
+        }`}
+      >
+        {/** TITLE */}
+        <li className="col-span-2 border-b py-9 border-gray-700 text-center">
+          <span className="tracking-wider font-medium">Expenses & Income</span>
         </li>
-        <br />
-        <li className="w-full py-2 hover:font-bold ">
-          <Link to="/expenses/" onClick={() => setNavbar(!navbar)}>
-            Home
-          </Link>
+        {/** LIST */}
+        <div className="lg:w-[768px] lg:m-auto text-gray-100 px-4 py-8 lg:py-16 grid grid-cols-3 lg:grid-cols-4 gap-4">
+          <li className="w-full rounded-lg bg-gradient-to-r from-purple-400 to-purple-600 hover:font-bold">
+            <Link
+              to="/about"
+              className="h-20 flex flex-col justify-between items-center text-4xl pt-3 pb-1 "
+              onClick={() => setNavbar(!navbar)}
+            >
+              <PiHouseSimpleLight />
+              <p className="text-sm">About</p>
+            </Link>
+          </li>
+
+          <li className="w-full rounded-lg bg-gradient-to-r from-green-400 to-green-600 hover:font-bold">
+            <Link
+              to="/analytics"
+              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1 "
+              onClick={() => setNavbar(!navbar)}
+            >
+              <BsGraphUpArrow />
+              <h1 className="text-sm">Analytics</h1>
+            </Link>
+          </li>
+          <li className="w-full rounded-lg bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:font-bold">
+            <Link
+              to="/formulario"
+              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1 "
+              onClick={() => setNavbar(!navbar)}
+            >
+              <div className="border-2 rounded-full w-8 h-8 text-xl flex justify-center items-center">
+                $
+              </div>
+              <h1 className="text-sm">Add New</h1>
+            </Link>
+          </li>
+          <li className="w-full rounded-lg bg-gradient-to-r from-blue-400 to-cyan-600 hover:font-bold">
+            <Link
+              to="/transactions"
+              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1"
+              onClick={() => setNavbar(!navbar)}
+            >
+              <TfiLayoutAccordionList />
+              <h1 className="text-sm">Transactions</h1>
+            </Link>
+          </li>
+        </div>
+        {/** BOTON CERRAR */}
+        <li className="mb-6 lg:mb-12 flex justify-center">
+          <button
+            onClick={() => setNavbar(!navbar)}
+            className="w-12 h-12 text-purple-300 rounded-full active:bg-none active:bg-transparent active:animate-ping focus:outline-none flex justify-center items-center shadow-lg shadow-purple-300"
+          >
+            {navbar ? (
+              <svg
+                width="30px"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
+              </svg>
+            ) : (
+              <AiOutlineArrowUp className="text-2xl" />
+            )}
+          </button>
         </li>
-        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
-          <Link to="/expenses/about" onClick={() => setNavbar(!navbar)}>
-            About
-          </Link>
-        </li>
-        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
-          <Link to="/expenses/analytics" onClick={() => setNavbar(!navbar)}>
-            Analytics
-          </Link>
-        </li>
-        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
-          <Link to="/expenses/formulario" onClick={() => setNavbar(!navbar)}>
-            Formulario
-          </Link>
-        </li>
-        <li className="w-full border-t border-gray-500 py-4 hover:font-bold ">
-          <Link to="/expenses/transactions" onClick={() => setNavbar(!navbar)}>
-            Transactions
-          </Link>
+        <p className="w-8 border-t-2 animate__animated animate__bounceInRight animate__slower animate__infinite"></p>
+        <li className="py-9 text-gray-200 text-xs border-t border-gray-700 text-center">
+          Copyright <span className="font-numero font-light">@ 2023</span> Inc.
+          All rights reserved.{" "}
         </li>
       </ul>
     </div>

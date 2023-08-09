@@ -14,21 +14,16 @@ const Movimientos = () => {
 
   const totalExpense = () => {
     let total = 0;
-    {
-      transformData().forEach(function (value) {
-        if (value.type === "Expense") total += value.total;
-      });
-    }
+    transformData().forEach(function (value) {
+      if (value.type === "Expense") total += value.total;
+    });
     return total;
   };
   const totalIncome = () => {
     let total = 0;
-    {
-      transformData().forEach(function (value) {
-        if (value.type === "Income") total += value.total;
-      });
-    }
-
+    transformData().forEach(function (value) {
+      if (value.type === "Income") total += value.total;
+    });
     return total;
   };
 
