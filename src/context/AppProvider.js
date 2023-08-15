@@ -1,10 +1,13 @@
-import React, { createContext, useContext, useReducer } from "react";
-import controlReducer from "../reducers/controlReducer";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { TYPES, controlReducer } from "../reducers/controlReducer";
 import filterReducer, { filterReducerMovim } from "../reducers/filterReducer";
-
+import axios from "axios";
 //5
 const initialState = {
-  db: [
+  transaction: [],
+  category: [],
+  acount: [],
+  /*db: [
     {
       category: "Cine",
       comment: "Pelicula en cinemark Death note en megaplaza",
@@ -218,8 +221,7 @@ const initialState = {
       type: "Expense",
       account: "Efectivo",
     },
-  ],
-  category: [],
+  ],*/
 };
 
 //2 EJECUTAR LOS DATOS Y COMPARTIR
@@ -257,16 +259,69 @@ const AppProvider = ({ children }) => {
     }
   );
 
+  useEffect(() => {
+    getTransaction();
+  }, []);
+
+  const getTransaction = async () => {
+    const response = await fetch(
+      "https://enthusiastic-pear-peplum.cyclic.app/api/transaction"
+    );
+    const json = await response.json();
+    //console.log(json);
+    dispatch({ type: TYPES.TRA_LIST, payload: json });
+  };
+
+  const transactionCreate = (form) => {
+    axios
+      .post(
+        `https://enthusiastic-pear-peplum.cyclic.app/api/transaction/`,
+        form
+      )
+      .then(function (response) {
+        dispatch({ type: TYPES.TRA_CREATE, payload: response.data });
+        /*toast.info("Details create successfully", {
+        //theme: "light",
+        theme: "colored",
+      });*/
+        //navigate(-1); //direccion con router
+        getTransaction();
+      });
+  };
+  const transactionDelete = (id) => {
+    let isDelete = window.confirm(
+      `Estas seguro de eliminar la transaccion con el id: ${id} ?`
+    );
+    if (isDelete) {
+      axios
+        .delete(
+          `https://enthusiastic-pear-peplum.cyclic.app/api/transaction/${id}`
+        )
+        .then(function (response) {
+          dispatch({ type: TYPES.DELETE_CREATE, payload: response.data });
+          /*toast.info("Details create successfully", {
+        //theme: "light",
+        theme: "colored",
+      });*/
+          //navigate(-1); //direccion con router
+          getTransaction();
+        });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
-        datos: state.db,
+        //datos: state.db,
+        datos: state.transaction,
         category: state.category,
         dispatch,
         filterState,
         filterDispatch,
         filterStateMovim,
         filterDispatchMovim,
+        transactionCreate,
+        transactionDelete,
       }}
     >
       {children}

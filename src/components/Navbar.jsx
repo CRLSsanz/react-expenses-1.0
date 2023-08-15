@@ -4,6 +4,8 @@ import { BsGraphUpArrow } from "react-icons/bs";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PiHouseSimpleLight } from "react-icons/pi";
 import { TfiLayoutAccordionList } from "react-icons/tfi";
+//import logo from "%PUBLIC_URL%/alogo0.png";
+import logo from "../images/alogo0.png";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -50,7 +52,7 @@ const Navbar = () => {
       </div>
       {/** MENU  */}
       <ul
-        className={`fixed z-50 text-purple-300 bg-[#222222ee] w-full min-hHH-[400px] transform transition-all duration-1000 flex flex-col rounded-b-[20px] text-center
+        className={`fixed z-50 text-white bg-[#222222ee] w-full min-hHH-[400px] transform transition-all duration-1000 flex flex-col rounded-b-md text-center
         ${
           navbar
             ? " opacity-100 pointer-events-auto top-0"
@@ -58,64 +60,69 @@ const Navbar = () => {
         }`}
       >
         {/** TITLE */}
-        <li className="col-span-2 border-b py-9 border-gray-700 text-center">
-          <span className="tracking-wider font-medium">Expenses & Income</span>
+        <li className="flex flex-col items-center justify-center mx-3 border-b py-6 border-gray-700 text-center">
+          <img src={logo} width="50px" />
+          <span className="pt-1 text-green-100 tracking-widest text-xs font-medium uppercase">
+            Expenses & Income
+          </span>
         </li>
         {/** LIST */}
-        <div className="lg:w-[768px] lg:m-auto text-gray-100 px-4 py-8 lg:py-16 grid grid-cols-3 lg:grid-cols-4 gap-4">
-          <li className="w-full rounded-lg bg-gradient-to-r from-purple-400 to-purple-600 hover:font-bold">
+        <div className="lg:w-[768px] lg:m-auto text-gray-100 p-12 lg:py-16 grid grid-cols-1 lg:grid-cols-4 gap-1">
+          <li className="w-full py-3 bg-gradient-to-r from-purple-600/20 to-transparent hover:font-bold">
             <Link
               to="/about"
-              className="h-20 flex flex-col justify-between items-center text-4xl pt-3 pb-1 "
+              className=" flex flex-row items-center text-3xl"
               onClick={() => setNavbar(!navbar)}
             >
-              <PiHouseSimpleLight />
+              <PiHouseSimpleLight className="w-16" />
               <p className="text-sm">About</p>
             </Link>
           </li>
 
-          <li className="w-full rounded-lg bg-gradient-to-r from-green-400 to-green-600 hover:font-bold">
+          <li className="w-full py-3 bg-gradient-to-r from-green-500/20 to-transparent hover:font-bold">
             <Link
               to="/analytics"
-              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1 "
+              className="flex flex-row items-center text-2xl"
               onClick={() => setNavbar(!navbar)}
             >
-              <BsGraphUpArrow />
+              <BsGraphUpArrow className="w-16" />
               <h1 className="text-sm">Analytics</h1>
             </Link>
           </li>
-          <li className="w-full rounded-lg bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:font-bold">
+
+          <li className="w-full py-3 bg-gradient-to-r from-pink-400/20 to-transparent hover:font-bold">
             <Link
               to="/formulario"
-              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1 "
+              className="flex flex-row items-center text-2xl"
               onClick={() => setNavbar(!navbar)}
             >
-              <div className="border-2 rounded-full w-8 h-8 text-xl flex justify-center items-center">
+              <div className="ml-4 w-7 h-7 border rounded-full text-base flex justify-center items-center">
                 $
               </div>
-              <h1 className="text-sm">Add New</h1>
+              <p className="ml-5 text-sm">Add New</p>
             </Link>
           </li>
-          <li className="w-full rounded-lg bg-gradient-to-r from-blue-400 to-cyan-600 hover:font-bold">
+
+          <li className="w-full py-3 bg-gradient-to-r from-cyan-600/20 to-transparent hover:font-bold">
             <Link
               to="/transactions"
-              className="h-20 flex flex-col justify-between items-center text-3xl pt-3 pb-1"
+              className="flex flex-row items-center text-2xl"
               onClick={() => setNavbar(!navbar)}
             >
-              <TfiLayoutAccordionList />
+              <TfiLayoutAccordionList className="w-16" />
               <h1 className="text-sm">Transactions</h1>
             </Link>
           </li>
         </div>
         {/** BOTON CERRAR */}
-        <li className="mb-6 lg:mb-12 flex justify-center">
+        <li className="fixed bottom-12 right-[45%] mb-6 lg:mb-12 flex justify-center">
           <button
             onClick={() => setNavbar(!navbar)}
-            className="w-12 h-12 text-purple-300 rounded-full active:bg-none active:bg-transparent active:animate-ping focus:outline-none flex justify-center items-center shadow-lg shadow-purple-300"
+            className="w-8 h-8 text-purple-300 rounded-full active:bg-none bg-gray-800 active:animate-ping focus:outline-none flex justify-center items-center shadow-md shadow-purple-300"
           >
             {navbar ? (
               <svg
-                width="30px"
+                width="20px"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,10 +130,11 @@ const Navbar = () => {
                 <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" />
               </svg>
             ) : (
-              <AiOutlineArrowUp className="text-2xl" />
+              <AiOutlineArrowUp className="text-xl" />
             )}
           </button>
         </li>
+        {/** LINEA */}
         <p className="w-8 border-t-2 animate__animated animate__bounceInRight animate__slower animate__infinite"></p>
         <li className="py-9 text-gray-200 text-xs border-t border-gray-700 text-center">
           Copyright <span className="font-numero font-light">@ 2023</span> Inc.

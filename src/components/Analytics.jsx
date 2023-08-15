@@ -21,6 +21,7 @@ const Analytics = () => {
 
   const transformData = () => {
     let data = datos;
+    //console.log(datos);
 
     if (byAge) {
       data = data.filter(
@@ -188,7 +189,7 @@ const Analytics = () => {
             .map(([key, value]) => (
               <div key={key} className="flex flex-col  items-center mb-4">
                 <div
-                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-4 border-purple-100 bg-purple-200 shadow-md mb-1 }`}
+                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-4 border-gray-100 bg-purple-50 shadow-md mb-1 }`}
                 >
                   <img
                     className=" absolute rounded-sm"

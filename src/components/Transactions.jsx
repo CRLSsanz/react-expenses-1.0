@@ -1,11 +1,16 @@
 import React from "react";
 import Chart from "react-apexcharts";
 import { PiWalletThin, PiShoppingCartSimpleLight } from "react-icons/pi";
+import { MdDeleteOutline } from "react-icons/md";
+import { AiOutlineLeft, AiOutlineMinus } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { VscCloseAll } from "react-icons/vsc";
 import { useAppContext } from "../context/AppProvider";
 const cargarImagen = require.context("../images", true);
 
 const Transactions = () => {
-  const { datos, filterStateMovim, filterDispatchMovim } = useAppContext();
+  const { datos, filterStateMovim, filterDispatchMovim, transactionDelete } =
+    useAppContext();
   const { byAge, byMonth } = filterStateMovim;
 
   const hoy = new Date().toISOString();
@@ -63,11 +68,11 @@ const Transactions = () => {
     })),
   }));
 
-  console.log(result);
+  //console.log(result);
 
   //
   const nombreDelDiaSegunFecha = (fecha) =>
-    ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"][
+    ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"][
       new Date(fecha).getDay()
     ];
 
@@ -131,11 +136,11 @@ const Transactions = () => {
       radialBar: {
         hollow: {
           margin: 0,
-          size: "50%", // grosor del circulo
-          //background: "#5B21B6", // 6D28D9 fonfo gris oscuro
+          size: "45%", // grosor del circulo
+          background: "#F8F5F5", // 6D28D9 fonfo gris oscuro
         },
         track: {
-          //background: "#fff", // borde no lleno
+          background: "#F2F4F6", // borde no lleno
           dropShadow: {
             enabled: true,
             top: 2,
@@ -150,8 +155,8 @@ const Transactions = () => {
             show: false,
           },
           value: {
-            offsetY: 5, //elevar texto
-            color: "#ddd",
+            offsetY: 6, //elevar texto
+            color: "#aaa", //color del texto 86%
             fontSize: "20px",
             show: true,
           },
@@ -172,10 +177,15 @@ const Transactions = () => {
     },
   };
 
+  const handleDelete = (id) => {
+    //alert("eliminar doc con el id: " + id);
+    transactionDelete(id);
+  };
+
   return (
     <div className="w-full md:max-w-[600px] mt-32 mx-4 md:py-4 md:px-12 min-h-[calc(100vh-250px)] bg-white/95 rounded-2xl rounded-tr-[40px] rounded-bl-[40px]">
       {/* TITLE - FILTER */}
-      <div className="px-8 pt-8 mb-4  flex items-center justify-between">
+      <div className="px-8 pt-8 mb-4 flex items-center justify-between">
         <div className="text-cyan-600 text-xl">Summary </div>
         <div className="text-gray-500 px-2 bg-gray-50 shadow-md rounded-full">
           <select
@@ -206,7 +216,7 @@ const Transactions = () => {
       </div>
       {/* CHART */}
       <div className="relative pt-2 flex md:justify-center">
-        <div className="absolute w-[calc(100%-1px)] md:w-[calc(100%-48px)] h-[270px] md:bg-gray-50 border shadow-md md:px-6">
+        <div className="absolute w-[calc(100%-1px)] md:w-[calc(100%-48px)] h-[330px] md:bg-gray-50X border shadow-md md:px-6">
           {" "}
         </div>
         <Chart
@@ -229,74 +239,83 @@ const Transactions = () => {
         </div>
       </div>
       {/* INCOME EXPENSES */}
-      <div className="-mt-2 bg-transparent text-gray-50 rounded-md mx-6 md:mx-12 mb-10 flex ">
-        <div className="relative bg-gradient-to-r from-cyan-500 to-cyan-400 text-right w-1/2 p-2 text-sm px-6 rounded-l-full">
-          <span className="text-gray-100">Income</span>
-          <br />
-          <span className="text-xl font-numero">${totalIncome()}</span>{" "}
-          <span className="font-numero text-cyan-400"> </span>
-          <PiWalletThin className="absolute top-3.5 left-4 text-4xl text-cyan-300" />
+      <div className="-mt-2 z-auto bg-gradient-to-br from-purple-700  to-pink-700 text-gray-50 rounded-lg mx-6 md:mx-12 mb-10 flex pt-2 ">
+        <div className="flex flex-col items-center text-center w-1/2 p-2 text-sm px-6">
+          <PiWalletThin className="bg-blue-400/50 w-12 h-12 rounded-full p-2 text-4xl text-cyan-300" />
+          <span className="mt-2 py-1 text-2xl font-numero">
+            ${totalIncome()}
+          </span>{" "}
+          <span className="-mt-2 text-cyan-100">Income</span>
         </div>
-        <div className="relative bg-gradient-to-r from-pink-400 to-red-500 w-1/2 p-2 text-sm px-6 rounded-r-full">
-          <span className="text-gray-100">Expenses</span>
-          <br />
-          <span className="text-xl font-numero">${totalExpense()}</span>{" "}
-          <PiShoppingCartSimpleLight className="absolute top-4 right-4 text-4xl text-red-300" />
+        <div className="flex flex-col text-center items-center w-1/2 p-2 text-sm px-6">
+          <PiShoppingCartSimpleLight className="bg-red-400/50 w-12 h-12 rounded-full p-2 text-4xl text-red-300" />
+          <span className="mt-2 py-1 text-2xl font-numero">
+            ${totalExpense()}
+          </span>{" "}
+          <span className="-mt-2 text-red-100">Expenses</span>
         </div>
       </div>
       {/* TRANSACTIONS */}
-      <div className=" px-4 md:px-6 mb-10">
-        <div className="text-cyan-600 py-3 pl-4 text-xl">
+      <div className=" px-6 md:px-6 mb-10">
+        <div className="text-cyan-600 py-3 pl-2 text-xl">
           Recent transactions{" "}
           <span className="font-numero">({transformData().length})</span>
         </div>
         {transformData().map((item, index) => (
           <div
             key={index}
-            className={`bg-gray-50 shadow pl-3 pr-4 mb-0 
-            border-r-4 flex flex-row items-start ${
-              item.type === "Income" ? " border-cyan-400 " : "border-red-400"
+            className={`relative bg-white shadow border-b-2 rounded-lg p-3 mb-2
+            flex flex-col items-start ${
+              item.type === "Income" ? " border-cyan-500  " : " border-red-400 "
             } `}
           >
-            <div className="p-1.5 mt-3 rounded-2xl shadow-md border border-gray-100 bg-gray-50 mr-3">
+            <div className="absolute top-3 left-3 shadow bg-gray-100 rounded-full p-2">
               <img
                 src={cargarImagen(`./${item.category}.png`)}
-                style={{ width: "35px" }}
+                style={{ width: "25px" }}
                 alt={item.category}
               />
             </div>
-            <div className="w-full py-3">
-              <div className="flex flex-row justify-between">
-                <p className="leading-tight flex py-1 items-center">
-                  {item.comment}
-                </p>
-                <div
-                  className={`text-lg whitespace-nowrap font-numero font-light ${
-                    item.type === "Income" ? " text-blue-500 " : "text-red-400"
-                  } `}
-                >
-                  {item.type === "Income"
-                    ? " + $" + item.total
-                    : " - $" + item.total}
-                </div>
-              </div>
 
-              <div className="text-xs flex flex-row justify-between">
-                <h1 className="tracking-wide text-gray-400 ">
-                  {item.category}{" "}
-                </h1>
-                <div className="whitespace-nowrap font-numero text-gray-400">
-                  {item.date.substr(5, 5) === monthDay ? (
-                    <h1>Hoy {nombreDelDiaSegunFecha(item.date)}</h1>
-                  ) : (
-                    <p>
-                      {nombreDelDiaSegunFecha(item.date) +
-                        ", " +
-                        item.date.substr(8, 2)}
-                    </p>
-                  )}
-                </div>
+            <div className="pl-12 border-b border-gray-100 w-full flex flex-row justify-between items-center mb-1">
+              <div className="whitespace-nowrap text-sm text-end font-numero ">
+                {item.date.substr(5, 5) === monthDay ? (
+                  <h1>Hoy {nombreDelDiaSegunFecha(item.date)}</h1>
+                ) : (
+                  <p>
+                    {nombreDelDiaSegunFecha(item.date) +
+                      ", " +
+                      item.date.substr(8, 2)}
+                  </p>
+                )}
               </div>
+              <div
+                className={`text-gray-600X text-base whitespace-nowrap font-numero font-normal ${
+                  item.type === "Income" ? " text-blue-500 " : "text-red-500"
+                } `}
+              >
+                {item.type === "Income" ? (
+                  <span className="hidden font-bold text-blue-500">{" +"}</span>
+                ) : (
+                  <span className="hidden font-semibold text-red-500">
+                    {" - "}
+                  </span>
+                )}
+                <span className="text-sm">{"$"}</span>
+                {item.total}
+              </div>
+            </div>
+
+            <p className="w-full pl-12 pr-10 pt-0.5 text-justify text-xs tracking-wide leading-tight text-gray-400 flex items-center">
+              {item.comment}
+            </p>
+
+            {/** CLOSE */}
+            <div className="absolute bottom-2.5 right-3 shadowX bg-whiteX rounded-full p-2X ">
+              <MdDeleteOutline
+                className="text-lg text-gray-300"
+                onClick={() => handleDelete(item._id)}
+              />
             </div>
           </div>
         ))}

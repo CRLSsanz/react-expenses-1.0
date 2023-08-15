@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import {
   AiOutlineCalendar,
@@ -6,12 +7,14 @@ import {
 } from "react-icons/ai";
 import { IoWalletOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { TYPES } from "../reducers/controlReducer";
+import { useAppContext } from "../context/AppProvider";
 
 const hoy = new Date().toISOString();
 //console.log(hoy);
 
 const initailForm = {
-  _id: null,
+  //_id: null,
   //date: new Date(),
   date: hoy.substr(0, 10),
   account: "",
@@ -19,7 +22,7 @@ const initailForm = {
   category: "",
   comment: "",
   type: "Expense" || "Income",
-  status: "",
+  //status: "",
 };
 
 const expensesCategory = [
@@ -62,6 +65,8 @@ const accounts = [
 
 const Formulario = () => {
   const [form, setForm] = useState(initailForm);
+  const { dispatch, transactionCreate } = useAppContext();
+
   const refTotal = useRef();
   const refComment = useRef();
   const refNewFecha = useRef();
@@ -78,16 +83,20 @@ const Formulario = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log(form);
+    transactionCreate(form);
+
     refComment.current.value = "";
     refTotal.current.value = "";
     refNewFecha.current.value = hoy.substr(0, 10);
 
     //let dh = hoy.substr(0, 10);
     //refTotal.current.className = "bg-red-500";
-    console.log(form);
-    //console.log(refDate.current);
 
+    //console.log(refDate.current);
     setForm(initailForm);
+
     //window.location = "/transactions";
     navigate("/transactions");
     alert("Datos enviados: " + JSON.stringify(form));
@@ -100,7 +109,7 @@ const Formulario = () => {
           <div className="bg-gradient-to-l from-cyan-400 via-cyan-500 to-cyan-600 text-white p-4 md:p-8 rounded-xl rounded-tl-[50px] -mt-8 animate__animated animate__jello animate__delay-1s animate__fastT animate__repeat-1">
             <h1 className="text-center text-xl mb-3">Nuevo registro</h1>
             <p className="pl-2 text-gray-200 text-sm mb-1">
-              Seleciona el tipo de movimiento
+              Seleciona el tipo de transaccion
             </p>
             {/** TYPE */}
             <div className="w-full flex justify-between">
@@ -150,8 +159,8 @@ const Formulario = () => {
               </div>
             </div>
 
-            <span class="hidden relative inline-flexX items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
-              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+            <span className="hidden relative inline-flexX items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
                 Pink to orange
               </span>
             </span>

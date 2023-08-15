@@ -7,10 +7,7 @@ import About from "./pages/About";
 import Analytics from "./components/Analytics";
 import Transactions from "./components/Transactions";
 import Formulario from "./components/Formulario";
-import ResumenMensual from "./components/ResumenMensual";
-import Movimientos from "./components/Movimientos";
 import { useState } from "react";
-import { useEffect } from "react";
 //  "homepage": "http://crlssanz.unaux.com/expenses/",
 
 /*const bag3 = "https://github.com/CRLSsanz/trade/blob/main/panal1.jpg?raw=true";
@@ -18,7 +15,8 @@ const bag0 =
   "https://r4.wallpaperflare.com/wallpaper/583/42/546/blue-lines-digital-art-abstract-wallpaper-29e0087dd13a4dcb6657089fd0c1869d.jpg"; */
 const bag2 =
   //"https://r4.wallpaperflare.com/wallpaper/681/554/339/abstract-planet-space-purple-wallpaper-6970a84df14a9dbb16f7683f30a186ad.jpg";
-  "https://r4.wallpaperflare.com/wallpaper/580/191/825/space-planet-abstract-space-art-wallpaper-8b76cc7df351ff090594eba99d9c7c80.jpg";
+  "https://r4.wallpaperflare.com/wallpaper/510/682/484/abstract-hexagon-wallpaper-38f67d08c0007c68604cf15ea8c2c44a.jpg";
+//"https://r4.wallpaperflare.com/wallpaper/580/191/825/space-planet-abstract-space-art-wallpaper-8b76cc7df351ff090594eba99d9c7c80.jpg";
 //"https://r4.wallpaperflare.com/wallpaper/853/586/450/universe-abstract-cube-gradient-wallpaper-6920483dc13a7d2b3657880f4071d63d.jpg";
 //"https://c0.wallpaperflare.com/path/91/628/867/adolescent-beautiful-brunette-buy-2475da7e0a113381084dbb5becb8962a.jpg";
 
@@ -46,7 +44,7 @@ function App() {
       <div
         className="bg-gray-950 min-h-screen flex flex-col justify-between"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${bag2})`,
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.2), rgba(0,0,0,0.6)), url(${bag2})`,
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundPosition: "50%",

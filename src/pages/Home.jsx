@@ -1,6 +1,4 @@
 import React from "react";
-import ResumenMensual from "../components/ResumenMensual";
-import Movimientos from "../components/Movimientos";
 import Formulario from "../components/Formulario";
 import About from "./About";
 import Transactions from "../components/Transactions";
