@@ -99,7 +99,8 @@ const Formulario = () => {
 
     //window.location = "/transactions";
     navigate("/transactions");
-    alert("Datos enviados: " + JSON.stringify(form));
+    //alert("Datos enviados: " + JSON.stringify(form));
+    alert("DATA SEND: " + JSON.stringify(form.category));
   };
 
   return (

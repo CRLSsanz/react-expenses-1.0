@@ -25,7 +25,7 @@ const Analytics = () => {
 
     if (byAge) {
       data = data.filter(
-        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-31`
+        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-32`
       );
     }
 
@@ -33,7 +33,7 @@ const Analytics = () => {
       data = data.filter(
         (item) =>
           item.date >= `${byAge}-${byMonth}-01` &&
-          item.date <= `${byAge}-${byMonth}-31`
+          item.date < `${byAge}-${byMonth}-32`
       );
     }
 
@@ -57,10 +57,23 @@ const Analytics = () => {
   );
 
   const valorMax = () => {
-    let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val2));
+    let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val1));
     return Math.max(...max3);
   };
+  //console.log(valorMax());
+  //console.log(dataType);
 
+  // VISTA GENERAL
+
+  const totalBalance = datos.reduce(
+    (prev, cur) => (
+      (prev[cur.type] = prev[cur.type] + cur.total || cur.total), prev
+    ),
+    {}
+  );
+  //console.log(totalBalance.Income);
+
+  //COLOR
   const color = (key, val) => {
     let c = " " + val + "-red-500 ";
     incomeCategory.map((item) => {
@@ -122,7 +135,31 @@ const Analytics = () => {
     <div className="w-full md:max-w-[600px] mt-32 mx-4 md:py-4 md:px-12 min-h-[calc(100vh-250px)] bg-white/95 rounded-2xl rounded-r-[40px]">
       <div className="text-cyan-600 px-8 pt-8 pb-4 flex items-center justify-between">
         <div className="text-xl">Analytics</div>
+        <div className="text-base font-numero py-1">2023</div>
       </div>
+      {/* BALANCE */}
+      <div className=" bg-gray-50 rounded-lg shadow-lg font-medium py-3 px-4 mx-6 mb-8">
+        <h1 className="text-gray-400 pb-3">Vista general del ano</h1>
+        <div className="w-full flex justify-between border-l-2 border-cyan-400 px-3 py-2 mb-1">
+          <div className="tracking-wider">Income</div>
+          <div className="text-cyan-600 font-numero">
+            $ {totalBalance.Income}.00
+          </div>
+        </div>
+        <div className="w-full flex justify-between border-l-2 border-red-400 px-3 py-2 mb-1">
+          <div className="tracking-wider">Expense</div>
+          <div className="text-red-600 font-numero">
+            $ {totalBalance.Expense}.00
+          </div>
+        </div>
+        <div className="w-full flex justify-between border-l-2 border-green-400 px-3 py-2 mb-1">
+          <div className="tracking-wider">Balance</div>
+          <div className="text-green-600 font-numero">
+            $ {totalBalance.Income - totalBalance.Expense}.00
+          </div>
+        </div>
+      </div>
+
       {/** CHART */}
       <div className="relative bg-transparent pb-4 flex justify-center">
         <div className="absolute w-[calc(100%-1px)] md:w-[calc(100%-48px)] h-[260px] md:bg-gray-50 border shadow-md md:px-6">
@@ -138,7 +175,6 @@ const Analytics = () => {
           //stroke={{ curve: "stepline" }}
         />
       </div>
-
       {/* FILTER */}
       <div className="px-6 my-5 flex flex-row justify-between items-center">
         <h1 className="text-cyan-600 inline-block pr-4 text-xl">

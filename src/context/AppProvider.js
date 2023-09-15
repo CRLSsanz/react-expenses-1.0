@@ -290,7 +290,8 @@ const AppProvider = ({ children }) => {
   };
   const transactionDelete = (id) => {
     let isDelete = window.confirm(
-      `Estas seguro de eliminar la transaccion con el id: ${id} ?`
+      //`Estas seguro de eliminar la transaccion con el id: ${id} ?`
+      `UNA VEZ ELIMINADO, No podra recuperar el registro!`
     );
     if (isDelete) {
       axios

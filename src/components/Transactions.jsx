@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Chart from "react-apexcharts";
 import { PiWalletThin, PiShoppingCartSimpleLight } from "react-icons/pi";
 import { MdDeleteOutline } from "react-icons/md";
@@ -6,9 +6,26 @@ import { AiOutlineLeft, AiOutlineMinus } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscCloseAll } from "react-icons/vsc";
 import { useAppContext } from "../context/AppProvider";
+import TransactionRow from "./TransactionRow";
 const cargarImagen = require.context("../images", true);
 
+const cmeses = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
 const Transactions = () => {
+  const [isOpen, setIsOpen] = useState();
   const { datos, filterStateMovim, filterDispatchMovim, transactionDelete } =
     useAppContext();
   const { byAge, byMonth } = filterStateMovim;
@@ -18,6 +35,7 @@ const Transactions = () => {
   //const age = hoy.substr(0, 4);
   const month = hoy.substr(5, 2);
   const monthDay = hoy.substr(5, 5);
+  let dataGroup = "";
 
   //
   const data = [
@@ -114,7 +132,7 @@ const Transactions = () => {
 
     if (byAge) {
       data = data.filter(
-        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-31`
+        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-32`
       );
     }
 
@@ -122,7 +140,7 @@ const Transactions = () => {
       data = data.filter(
         (item) =>
           item.date >= `${byAge}-${byMonth}-01` &&
-          item.date <= `${byAge}-${byMonth}-31`
+          item.date < `${byAge}-${byMonth}-32`
       );
     }
 
@@ -262,61 +280,22 @@ const Transactions = () => {
           <span className="font-numero">({transformData().length})</span>
         </div>
         {transformData().map((item, index) => (
-          <div
-            key={index}
-            className={`relative bg-white shadow border-b-2 rounded-lg p-3 mb-2
-            flex flex-col items-start ${
-              item.type === "Income" ? " border-cyan-500  " : " border-red-400 "
-            } `}
-          >
-            <div className="absolute top-3 left-3 shadow bg-gray-100 rounded-full p-2">
-              <img
-                src={cargarImagen(`./${item.category}.png`)}
-                style={{ width: "25px" }}
-                alt={item.category}
-              />
-            </div>
+          <div key={index}>
+            {item.date.substr(5, 5) === dataGroup ? (
+              <p className="hidden">no mostrar</p>
+            ) : (
+              <p className="bg-transparent text-gray-400 pt-4 p-2 text-sm">
+                <span className="font-numero">{item.date.substr(8, 2)} </span>
+                {" de " +
+                  cmeses[Number(byMonth - 1)] +
+                  " (" +
+                  nombreDelDiaSegunFecha(item.date) +
+                  ")"}
+              </p>
+            )}
+            <p className="hidden">{(dataGroup = item.date.substr(5, 5))}</p>
 
-            <div className="pl-12 border-b border-gray-100 w-full flex flex-row justify-between items-center mb-1">
-              <div className="whitespace-nowrap text-sm text-end font-numero ">
-                {item.date.substr(5, 5) === monthDay ? (
-                  <h1>Hoy {nombreDelDiaSegunFecha(item.date)}</h1>
-                ) : (
-                  <p>
-                    {nombreDelDiaSegunFecha(item.date) +
-                      ", " +
-                      item.date.substr(8, 2)}
-                  </p>
-                )}
-              </div>
-              <div
-                className={`text-gray-600X text-base whitespace-nowrap font-numero font-normal ${
-                  item.type === "Income" ? " text-blue-500 " : "text-red-500"
-                } `}
-              >
-                {item.type === "Income" ? (
-                  <span className="hidden font-bold text-blue-500">{" +"}</span>
-                ) : (
-                  <span className="hidden font-semibold text-red-500">
-                    {" - "}
-                  </span>
-                )}
-                <span className="text-sm">{"$"}</span>
-                {item.total}
-              </div>
-            </div>
-
-            <p className="w-full pl-12 pr-10 pt-0.5 text-justify text-xs tracking-wide leading-tight text-gray-400 flex items-center">
-              {item.comment}
-            </p>
-
-            {/** CLOSE */}
-            <div className="absolute bottom-2.5 right-3 shadowX bg-whiteX rounded-full p-2X ">
-              <MdDeleteOutline
-                className="text-lg text-gray-300"
-                onClick={() => handleDelete(item._id)}
-              />
-            </div>
+            <TransactionRow item={item} />
           </div>
         ))}
       </div>

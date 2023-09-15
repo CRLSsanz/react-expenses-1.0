@@ -60,14 +60,14 @@ const Navbar = () => {
         }`}
       >
         {/** TITLE */}
-        <li className="flex flex-col items-center justify-center mx-3 border-b py-6 border-gray-700 text-center">
+        <li className="flex flex-col items-center justify-center mx-3 border-b py-3 border-gray-700 text-center">
           <img src={logo} width="50px" />
           <span className="pt-1 text-green-100 tracking-widest text-xs font-medium uppercase">
-            Expenses & Income
+            Income & Expenses
           </span>
         </li>
         {/** LIST */}
-        <div className="lg:w-[768px] lg:m-auto text-gray-100 p-12 lg:py-16 grid grid-cols-1 lg:grid-cols-4 gap-1">
+        <div className="lg:w-[768px] lg:m-auto text-gray-100 p-12 lg:py-16 grid grid-cols-1 lg:grid-cols-4 gap-4">
           <li className="w-full py-3 bg-gradient-to-r from-purple-600/20 to-transparent hover:font-bold">
             <Link
               to="/about"
