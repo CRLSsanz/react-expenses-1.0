@@ -56,12 +56,14 @@ const incomeCategory = [
 ];
 
 const accounts = [
-  "Efectivo",
-  "Cuenta Bancaria",
-  "Tarjeta de credito",
-  "Caja fuerte",
-  "Otros",
-];
+  "Efectivo", // 	FLF - fondo de libertad financiera, dinero para multiplicar invertir
+  "Cuenta Bancaria",//	NEC - nececidades, todos los gastos basicos, fijos, responsabiloidad para vivir
+  "Tarjeta de credito",// JUE - para pasarla bien	
+  "Caja fuerte",//	EDU - comprar libro, cursos online
+  "Otros",//		ALP - ahorro a largo plazo, compras de aqui a 10 anos
+  "Otros",//		DAR - caja del dar, regalar
+];  	//https://mega.nz/file/sMJVja7Y#shWnRvrYglO4Fk-F_iWLGPqlefLbvxUbPXeqYSyxxqk  
+//https://mega.nz/file/sRoggCpI#yyY6Wx-B1ppVtSyNO5Va2fwhzCPpIVnTw-I1RdkF1e0 
 
 const Formulario = () => {
   const [form, setForm] = useState(initailForm);

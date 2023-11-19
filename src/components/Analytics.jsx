@@ -13,7 +13,20 @@ const incomeCategory = [
   "Otros ingresos",
 ];
 
-const cmeses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep"];
+const cmeses = [
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic",
+];
 
 const Analytics = () => {
   const { datos, filterState, filterDispatch } = useAppContext();
@@ -97,6 +110,8 @@ const Analytics = () => {
     }
     return acum;
   }, []);
+  //console.log(objExp);
+
   const objInc = datos.reduce((acum, item) => {
     const [year, month] = item.date.split("-");
     //console.log("ano: " + year + " - mes: " + month);
@@ -111,11 +126,16 @@ const Analytics = () => {
   let exp = [];
   let inc = [];
   let cmes = [];
-  Object.entries(objExp).map(([key, value]) => exp.push(value));
-  Object.entries(objInc).map(([key, value]) => inc.push(value));
-  Object.entries(objExp).map(([key, value]) =>
-    cmes.push(cmeses[Number(key) - 1])
-  );
+  Object.entries(objExp) //usamos sort para ordenar ascendente.
+    .sort()
+    .map(([key, value]) => exp.push(value));
+  Object.entries(objInc)
+    .sort()
+    .map(([key, value]) => inc.push(value));
+  Object.entries(objExp)
+    .sort()
+    .map(([key, value]) => cmes.push(cmeses[Number(key) - 1]));
+  //console.log(objExp);
 
   const serie1 = [
     { name: "Income", data: inc },
