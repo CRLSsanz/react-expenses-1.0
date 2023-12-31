@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { TYPES, controlReducer } from "../reducers/controlReducer";
-import filterReducer, { filterReducerMovim } from "../reducers/filterReducer";
+import filterReducer, {
+  filterTransactionReducer,
+} from "../reducers/filterReducer";
 import axios from "axios";
 //5
 const initialState = {
@@ -240,24 +242,26 @@ const AppProvider = ({ children }) => {
   // 7777 web: https://www.freecodecamp.org/espanol/news/como-formatear-fechas-en-javascript-con-una-linea-de-codigo/
   const hoy = new Date().toISOString();
   const age = hoy.substr(0, 4);
+  const year = hoy.substr(0, 4);
   const month = hoy.substr(5, 2);
 
-  // 7777 REDUCER PARA FILTRAR
+  // 7777 REDUCER PARA FILTRAR TRANSACTION filterTransactionState
   const [filterState, filterDispatch] = useReducer(filterReducer, {
-    byAge: age,
+    byYear: year,
     byMonth: month,
     byControl: "",
     byAccount: "",
     searchQuery: "",
   });
 
-  const [filterStateMovim, filterDispatchMovim] = useReducer(
-    filterReducerMovim,
+  const [filterTransactionState, filterTransactionDispatch] = useReducer(
+    filterTransactionReducer,
     {
-      byAge: age,
+      byYear: year,
       byMonth: month,
     }
   );
+  // 7777 END
 
   useEffect(() => {
     getTransaction();
@@ -288,6 +292,7 @@ const AppProvider = ({ children }) => {
         getTransaction();
       });
   };
+
   const transactionDelete = (id) => {
     let isDelete = window.confirm(
       //`Estas seguro de eliminar la transaccion con el id: ${id} ?`
@@ -319,8 +324,8 @@ const AppProvider = ({ children }) => {
         dispatch,
         filterState,
         filterDispatch,
-        filterStateMovim,
-        filterDispatchMovim,
+        filterTransactionState,
+        filterTransactionDispatch,
         transactionCreate,
         transactionDelete,
       }}
@@ -330,7 +335,7 @@ const AppProvider = ({ children }) => {
   );
 };
 
-// 3 NO POR DEFECTO POR QUE VMAOS A EXPORTAR VARIAS COSAS
+// 3 NO POR DEFECTO, POR QUE VAMOS A EXPORTAR VARIAS COSAS
 // PRIMER0 APPPROVIDER
 // SEGUNDO USEAPPCONTEXT
 export { AppProvider, useAppContext };

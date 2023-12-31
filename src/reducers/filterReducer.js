@@ -1,8 +1,8 @@
 const filterReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
-    case "FILTER_BY_AGE":
-      return { ...state, byAge: action.payload };
+    case "FILTER_BY_YEAR":
+      return { ...state, byYear: action.payload };
     case "FILTER_BY_MONTH":
       return { ...state, byMonth: action.payload };
     case "FILTER_BY_CONTROL":
@@ -12,11 +12,11 @@ const filterReducer = (state, action) => {
   }
 };
 
-export const filterReducerMovim = (state, action) => {
+export const filterTransactionReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
-    case "FILTER_BY_AGE":
-      return { ...state, byAge: action.payload };
+    case "FILTER_BY_YEAR":
+      return { ...state, byYear: action.payload };
     case "FILTER_BY_MONTH":
       return { ...state, byMonth: action.payload };
     case "FILTER_BY_CONTROL":

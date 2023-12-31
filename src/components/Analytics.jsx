@@ -30,38 +30,55 @@ const cmeses = [
 
 const Analytics = () => {
   const { datos, filterState, filterDispatch } = useAppContext();
-  const { byAge, byMonth, byControl } = filterState;
+  const { byYear, byMonth } = filterState;
 
   const transformData = () => {
     let data = datos;
     //console.log(datos);
 
-    if (byAge) {
+    if (byYear) {
       data = data.filter(
-        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-32`
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
 
     if (byMonth) {
       data = data.filter(
         (item) =>
-          item.date >= `${byAge}-${byMonth}-01` &&
-          item.date < `${byAge}-${byMonth}-32`
+          item.date >= `${byYear}-${byMonth}-01` &&
+          item.date < `${byYear}-${byMonth}-32`
       );
     }
 
     return data;
   };
 
+  const transformDataChart = () => {
+    let data = datos;
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+    return data;
+  };
+
   const resultado2 = datos.map((item) => item.type);
 
+  // EJEMPLOS - AYUDA
+  const valorMax = () => {
+    let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val1));
+    return Math.max(...max3);
+  };
   const dataType = transformData().reduce(
     (prev, cur) => (
       (prev[cur.type] = prev[cur.type] + cur.total || cur.total), prev
     ),
     {}
   );
-
+  // DATOS POR CATEGORIAS
   const dataCategory = transformData().reduce(
     (prev, cur) => (
       (prev[cur.category] = prev[cur.category] + cur.total || cur.total), prev
@@ -69,22 +86,13 @@ const Analytics = () => {
     {}
   );
 
-  const valorMax = () => {
-    let max3 = Object.entries(resultado2).map(([val1, val2]) => (val2 = val1));
-    return Math.max(...max3);
-  };
-  //console.log(valorMax());
-  //console.log(dataType);
-
-  // VISTA GENERAL
-
-  const totalBalance = datos.reduce(
+  // VISTA GENERAL - INCOME EXPENSES BALANCE
+  const totalBalance = transformDataChart().reduce(
     (prev, cur) => (
       (prev[cur.type] = prev[cur.type] + cur.total || cur.total), prev
     ),
     {}
   );
-  //console.log(totalBalance.Income);
 
   //COLOR
   const color = (key, val) => {
@@ -100,7 +108,7 @@ const Analytics = () => {
   };
 
   // CHART
-  const objExp = datos.reduce((acum, item) => {
+  const objExp = transformDataChart().reduce((acum, item) => {
     const [year, month] = item.date.split("-");
     //console.log("ano: " + year + " - mes: " + month);
     //console.log(item.date.substr(5, 2));
@@ -112,7 +120,7 @@ const Analytics = () => {
   }, []);
   //console.log(objExp);
 
-  const objInc = datos.reduce((acum, item) => {
+  const objInc = transformDataChart().reduce((acum, item) => {
     const [year, month] = item.date.split("-");
     //console.log("ano: " + year + " - mes: " + month);
     //console.log(item.date.substr(5, 2));
@@ -153,34 +161,51 @@ const Analytics = () => {
 
   return (
     <div className="w-full md:max-w-[600px] mt-32 mx-4 md:py-4 md:px-12 min-h-[calc(100vh-250px)] bg-white/95 rounded-2xl rounded-r-[40px]">
+      {/* TITULO - FILTER YEAR */}
       <div className="text-cyan-600 px-8 pt-8 pb-4 flex items-center justify-between">
         <div className="text-xl">Analytics</div>
-        <div className="text-base font-numero py-1">2023</div>
+        <div className="text-gray-500 px-2 bg-gray-50 shadow-md rounded-full">
+          <select
+            defaultValue={byYear}
+            onChange={(e) =>
+              filterDispatch({
+                type: "FILTER_BY_YEAR",
+                payload: e.target.value,
+              })
+            }
+            className="focus:outline-none appearance-none bg-transparent p-2 font-numero"
+          >
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
       </div>
       {/* BALANCE */}
       <div className=" bg-gray-50 rounded-lg shadow-lg font-medium py-3 px-4 mx-6 mb-8">
-        <h1 className="text-gray-400 pb-3">Vista general del ano</h1>
-        <div className="w-full flex justify-between border-l-2 border-cyan-400 px-3 py-2 mb-1">
-          <div className="tracking-wider">Income</div>
-          <div className="text-cyan-600 font-numero">
-            $ {totalBalance.Income}.00
+        <h1 className="text-gray-400 pb-3">Overview of the year</h1>
+        <div className="w-full flex justify-between pt-2">
+          <div className="text-cyan-600 pl-1 text-lg font-numero border-l-2 border-cyan-400">
+            {totalBalance.Income}.00 €
+          </div>
+          <div className="text-green-600 font-numero text-end">
+            {totalBalance.Income - totalBalance.Expense}.00 €
+          </div>
+          <div className="text-red-600 pr-1 text-lg font-numero border-r-2 border-red-400">
+            {totalBalance.Expense}.00 €
           </div>
         </div>
-        <div className="w-full flex justify-between border-l-2 border-red-400 px-3 py-2 mb-1">
-          <div className="tracking-wider">Expense</div>
-          <div className="text-red-600 font-numero">
-            $ {totalBalance.Expense}.00
+        <div className="w-full text-gray-500 flex justify-between mb-1">
+          <div className="tracking-wider pl-1 border-l-2 border-cyan-400">
+            Income
           </div>
-        </div>
-        <div className="w-full flex justify-between border-l-2 border-green-400 px-3 py-2 mb-1">
-          <div className="tracking-wider">Balance</div>
-          <div className="text-green-600 font-numero">
-            $ {totalBalance.Income - totalBalance.Expense}.00
+          <div className="tracking-wider hidden ">Balance</div>
+          <div className="tracking-wider pr-1 border-r-2 border-red-400">
+            Expense
           </div>
         </div>
       </div>
 
-      {/** CHART */}
+      {/* CHART */}
       <div className="relative bg-transparent pb-4 flex justify-center">
         <div className="absolute w-[calc(100%-1px)] md:w-[calc(100%-48px)] h-[260px] md:bg-gray-50 border shadow-md md:px-6">
           {" "}
@@ -195,7 +220,8 @@ const Analytics = () => {
           //stroke={{ curve: "stepline" }}
         />
       </div>
-      {/* FILTER */}
+
+      {/* FILTER MONTH */}
       <div className="px-6 my-5 flex flex-row justify-between items-center">
         <h1 className="text-cyan-600 inline-block pr-4 text-xl">
           Category list
@@ -236,8 +262,7 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-
-      {/** LIST DATOS */}
+      {/* LIST DATOS */}
       <div className="bg-gray-50 text-gray-500 shadow-lg rounded-lg rounded-br-[15px] pt-4 px-1 mx-6 mb-10">
         <div className="w-full grid grid-cols-4 ">
           {Object.entries(dataCategory)
@@ -258,7 +283,8 @@ const Analytics = () => {
                   className={`font-light font-numero ${color(key, "text")}
                   } `}
                 >
-                  ${value}
+                  {value}
+                  <span className="text-[10px] -pt-6">.00 €</span>
                 </h4>
                 <h4 className="truncateXX w-full text-center text-xs font-medium">
                   {key}

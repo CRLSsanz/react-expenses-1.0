@@ -21,9 +21,13 @@ const cmeses = [
 const TransactionRow = ({ item, dataGroup }) => {
   const [isOpen, setIsOpen] = useState();
 
-  const { datos, filterStateMovim, filterDispatchMovim, transactionDelete } =
-    useAppContext();
-  const { byAge, byMonth } = filterStateMovim;
+  const {
+    datos,
+    filterTransactionState,
+    filterDispatchMovim,
+    transactionDelete,
+  } = useAppContext();
+  const { byYear, byMonth } = filterTransactionState;
 
   const nombreDelDiaSegunFecha = (fecha) =>
     ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"][
@@ -39,8 +43,8 @@ const TransactionRow = ({ item, dataGroup }) => {
     <div
       className={`bg-gray-50 border-r-2   ${
         item.type === "Income"
-          ? " hover:bg-cyan-50 border-cyan-400 "
-          : " hover:bg-red-50 border-red-400 "
+          ? " hover:bg-cyan-100 border-cyan-400 "
+          : " hover:bg-red-100 border-red-400 "
       } `}
     >
       <div
@@ -70,12 +74,14 @@ const TransactionRow = ({ item, dataGroup }) => {
             <span className="hidden font-semibold text-red-500">{" - "}</span>
           )}
           {item.total}
-          <span className="text-sm">{" $"}</span>
+          <span className="text-[10px] ml-[2px] inline-block align-[3px] ">
+            {"00 €"}
+          </span>
         </div>
       </div>
       {isOpen && (
-        <div className="relative border-b border-gray-100 -mt-2 pb-4 px-12">
-          <p className="text-gray-400 text-sm">{item.comment}</p>
+        <div className="relative border-b border-gray-100 -mt-2 pb-4 px-12 font-numero">
+          <p className="text-gray-400 text-sm ">{item.comment}</p>
           <div className="absolute bottom-3.5 right-3 shadowX bg-whiteX rounded-full p-2X ">
             <MdDeleteOutline
               className="text-lg text-gray-300"

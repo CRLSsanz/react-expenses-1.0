@@ -26,9 +26,13 @@ const cmeses = [
 
 const Transactions = () => {
   const [isOpen, setIsOpen] = useState();
-  const { datos, filterStateMovim, filterDispatchMovim, transactionDelete } =
-    useAppContext();
-  const { byAge, byMonth } = filterStateMovim;
+  const {
+    datos,
+    filterTransactionState,
+    filterTransactionDispatch,
+    transactionDelete,
+  } = useAppContext();
+  const { byYear, byMonth } = filterTransactionState;
 
   const hoy = new Date().toISOString();
   //console.log(hoy);
@@ -130,17 +134,18 @@ const Transactions = () => {
   const transformData = () => {
     let data = datos;
 
-    if (byAge) {
+    if (byYear) {
       data = data.filter(
-        (item) => item.date >= `${byAge}-01-01` && item.date <= `${byAge}-12-32`
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
 
     if (byMonth) {
       data = data.filter(
         (item) =>
-          item.date >= `${byAge}-${byMonth}-01` &&
-          item.date < `${byAge}-${byMonth}-32`
+          item.date >= `${byYear}-${byMonth}-01` &&
+          item.date < `${byYear}-${byMonth}-32`
       );
     }
 
@@ -209,7 +214,7 @@ const Transactions = () => {
           <select
             defaultValue={byMonth}
             onChange={(e) =>
-              filterDispatchMovim({
+              filterTransactionDispatch({
                 type: "FILTER_BY_MONTH",
                 payload: e.target.value,
               })
@@ -229,7 +234,21 @@ const Transactions = () => {
             <option value="11">Noviembre</option>
             <option value="12">Diciembre</option>
           </select>
-          <h1 className="inline-block font-numero pr-2">2023</h1>
+          <h1 className="inline-blockk font-numero pr-2 hidden ">2023</h1>
+          <select
+            defaultValue={byYear}
+            onChange={(e) =>
+              filterTransactionDispatch({
+                type: "FILTER_BY_YEAR",
+                payload: e.target.value,
+              })
+            }
+            className="focus:outline-none appearance-none bg-transparent p-2 font-numero"
+          >
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
         </div>
       </div>
       {/* CHART */}
